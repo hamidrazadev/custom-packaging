@@ -2,12 +2,15 @@
 import { useState, useRef } from "react";
 import { Menu, X, Phone, ChevronDown, Search, ChevronUp } from "lucide-react";
 import Link from "next/link";
+import FormDialog from "./FormDialog";
 
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const hideDropdownTimeout = useRef(null);
+    const [open, setOpen] = useState(false);
+
 
     const menuItems = [
         {
@@ -74,7 +77,7 @@ const Header = () => {
                                 (866) 225-2112
                             </div>
                         </div>
-                        <a href="#" className="bg-accent hover:bg-primary text-white px-4 lg:px-6 py-2 rounded-lg font-medium text-sm transition-all duration-300">
+                        <a href="#" onClick={()=> setOpen(true)} className="bg-accent hover:bg-primary text-white px-4 lg:px-6 py-2 rounded-lg font-medium text-sm transition-all duration-300">
                             Want to Consult?
                         </a>
                     </div>
@@ -147,7 +150,7 @@ const Header = () => {
                             </div>
                         ))}
                         <div className="flex flex-col space-y-2 mt-4">
-                            <a href="#" className="bg-accent hover:bg-primary text-white px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 text-center">
+                            <a href="#" onClick={()=> setOpen(true)} className="bg-accent hover:bg-primary text-white px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 text-center">
                                 Request A Quote
                             </a>
                             <div className="flex items-center justify-center text-accent font-bold text-sm">
@@ -158,6 +161,8 @@ const Header = () => {
                     </div>
                 </div>
             )}
+            <FormDialog open={open} onOpenChange={setOpen} />
+
         </div>
     );
 };

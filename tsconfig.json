@@ -27,7 +27,7 @@
       }
     ]
   },
-  "allowJs": true,           // Must be true for .jsx support
+  "allowJs": true,
   "jsx": "preserve",
   "include": [
     "next-env.d.ts",

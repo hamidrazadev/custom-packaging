@@ -1,7 +1,10 @@
-import React from 'react';
+'use client'
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import FormDialog from './FormDialog';
 
 const Hero = () => {
+    const [open, setOpen] = useState(false);
     return (
         <section className="pt-8 pb-16 bg-gradient-to-br from-blue-50 to-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,9 +37,11 @@ const Hero = () => {
                                 variant="outline"
                                 size="lg"
                                 className="border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 text-lg"
+                                onClick={() => setOpen(true)}
                             >
                                 Request Quote
                             </Button>
+                            <FormDialog  open={open} onOpenChange={setOpen}/>
                         </div>
 
                         {/* Trust Indicators */}

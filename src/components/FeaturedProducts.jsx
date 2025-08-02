@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Carousel from './Carousel';
+import FormDialog from './FormDialog';
 
 const FeaturedProducts = ({ subHeading, title, description, productsData }) => {
     const [slidesPerView, setSlidesPerView] = useState(3);
     const [currentSlide, setCurrentSlide] = useState(0); // You forgot this
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         const updateSlidesPerView = () => {
@@ -146,6 +148,7 @@ const FeaturedProducts = ({ subHeading, title, description, productsData }) => {
                                             variant="outline"
                                             size="sm"
                                             className="border-primary text-primary hover:bg-primary hover:text-white px-2 py-1 text-sm"
+                                            onClick={() => setOpen(true)}
                                         >
                                             Request Quote
                                         </Button>
@@ -226,6 +229,7 @@ const FeaturedProducts = ({ subHeading, title, description, productsData }) => {
                     </div>
                 </div>}
             </div>
+            <FormDialog open={open} onOpenChange={setOpen} />
         </section>
     );
 };
