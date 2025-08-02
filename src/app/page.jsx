@@ -113,7 +113,7 @@ const topSellingIndustries = [
         name: "Exploding Boxes",
         category: "Gifts",
         image: "https://apiv1.boxprintinghub.com/wp-content/uploads/2025/08/box-9.webp",
-        rating: 5.0,
+        rating: 4.5,
         reviews: 98,
         price: "From $4.00",
         features: ["Child Resistant", "Tamper Evident", "FDA Approved"]
