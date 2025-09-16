@@ -14,6 +14,12 @@ const Header = () => {
 
     const menuItems = [
         {
+            name: 'Home',
+            href: '/',
+            hasDropdown: false,
+            dropdownItems: []
+        },
+        {
             name: 'Industries',
             href: '#industries',
             hasDropdown: true,
@@ -43,6 +49,30 @@ const Header = () => {
                 // { name: 'Window Boxes', img: "https://www.halfpricepackaging.com/_ipx/f_webp&fit_cover&s_220x220/images/packaging-styles/window-boxes.jpg" },
                 // { name: 'Gable Boxes', img: "https://www.halfpricepackaging.com/_ipx/f_webp&fit_cover&s_220x220/images/packaging-styles/gable-boxes.jpg" }
             ],
+        },
+        {
+            name: 'Other Printing Products',
+            href: '/',
+            hasDropdown: false,
+            dropdownItems: []
+        },
+        {
+            name: 'Custom Quotes',
+            href: '/',
+            hasDropdown: false,
+            dropdownItems: []
+        },
+        {
+            name: 'About Us',
+            href: '/',
+            hasDropdown: false,
+            dropdownItems: []
+        },
+        {
+            name: 'Contact Us',
+            href: '/',
+            hasDropdown: false,
+            dropdownItems: []
         },
     ];
 
@@ -98,7 +128,9 @@ const Header = () => {
                                         {item.name}
                                         {item.hasDropdown && <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""}`} />}
                                     </a>
-                                    {activeDropdown === item.name && (
+
+
+                                    {item.hasDropdown.length > 0 && activeDropdown === item.name && (
                                         <div className="absolute left-0 top-full mt-4 bg-white shadow-lg border border-gray-200 p-6 w-[800px] grid grid-cols-2 lg:grid-cols-4 gap-6 transition-all duration-300 z-50" onMouseEnter={() => handleMouseEnter(item.name)} onMouseLeave={handleMouseLeave}>
                                             {item.dropdownItems.map((dropdownItem, index) => (
                                                 <a key={index} href="#" className="flex flex-col items-center text-center hover:shadow-lg p-3 rounded-lg transition-all duration-200 hover:scale-105">
@@ -114,6 +146,7 @@ const Header = () => {
                                             </a> */}
                                         </div>
                                     )}
+
                                 </div>
                             ))}
                         </div>

@@ -43,7 +43,7 @@ const About = () => {
         <section id="about" className="py-16 sm:py-20 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
-                <div className="text-center mb-12 sm:mb-16 animate-fade-in">
+                {/* <div className="text-center mb-12 sm:mb-16 animate-fade-in">
                     <h2 className="text-3xl sm:text-4xl font-display font-bold text-accent mb-4">
                         About <span className="text-gradient">Custom Packaging</span>
                     </h2>
@@ -51,16 +51,19 @@ const About = () => {
                         We're dedicated to providing innovative packaging solutions that enhance your brand while protecting our planet.
                         Our mission is to make premium, sustainable packaging accessible to businesses of all sizes.
                     </p>
-                </div>
+                </div> */}
 
                 {/* Mission Statement */}
                 <div className="bg-gray-50 rounded-2xl shadow-custom p-6 sm:p-8 lg:p-12 mb-12 sm:mb-16 animate-scale-in">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                         <div>
-                            <h3 className="text-2xl sm:text-3xl font-display font-semibold text-accent mb-4 sm:mb-6">Our Mission</h3>
+                            {/* <h3 className="text-2xl sm:text-3xl font-display font-semibold text-accent mb-4 sm:mb-6">Our Mission</h3> */}
+                            <h2 className="text-3xl sm:text-4xl font-display font-bold text-accent mb-4">
+                                About <span className="text-gradient">Custom Packaging</span>
+                            </h2>
                             <p className="text-base sm:text-lg text-accent-muted mb-4 sm:mb-6 leading-relaxed">
-                                To revolutionize the packaging industry by combining cutting-edge design, sustainable materials,
-                                and affordable pricing. We believe every business deserves packaging that tells their story beautifully.
+                                We're dedicated to providing innovative packaging solutions that enhance your brand while protecting our planet.
+                        Our mission is to make premium, sustainable packaging accessible to businesses of all sizes.
                             </p>
                             <div className="flex items-center space-x-4">
                                 <div className="flex-shrink-0">
