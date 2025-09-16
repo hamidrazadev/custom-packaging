@@ -129,8 +129,8 @@ const Header = () => {
                                         {item.hasDropdown && <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""}`} />}
                                     </a>
 
-
-                                    {item.hasDropdown.length > 0 && activeDropdown === item.name && (
+                                    {item.dropdownItems.length > 0 && (
+                                     activeDropdown === item.name && (
                                         <div className="absolute left-0 top-full mt-4 bg-white shadow-lg border border-gray-200 p-6 w-[800px] grid grid-cols-2 lg:grid-cols-4 gap-6 transition-all duration-300 z-50" onMouseEnter={() => handleMouseEnter(item.name)} onMouseLeave={handleMouseLeave}>
                                             {item.dropdownItems.map((dropdownItem, index) => (
                                                 <a key={index} href="#" className="flex flex-col items-center text-center hover:shadow-lg p-3 rounded-lg transition-all duration-200 hover:scale-105">
@@ -145,7 +145,8 @@ const Header = () => {
                                                 </div>
                                             </a> */}
                                         </div>
-                                    )}
+                                    )
+                                )}
 
                                 </div>
                             ))}
