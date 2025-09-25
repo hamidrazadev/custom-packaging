@@ -16,13 +16,13 @@ export default function Hero({ heroData }) {
         setFormData({ ...formData, [name]: value });
     }
     return (
-        <div className='grid grid-cols-1 lg:gap-8 lg:grid-cols-2 container mx-auto py-4 justify-between'>
+        <div className='grid grid-cols-1 lg:gap-8 lg:grid-cols-2 container mx-auto pt-4 justify-between'>
             <div className="flex lg:flex-col flex-col-reverse justify-between gap-6 lg:gap-12">
                 <div className="flex flex-col gap-2">
                     <h1>{heroData.title}</h1>
                     <p>{heroData.description}</p>
                 </div>
-                <Image src={heroData.image} width={750} height={750} />
+                <Image alt={heroData.title} src={heroData.image} width={750} height={750} />
             </div>
             <div className="lg:px-8 py-4 lg:py-2 flex flex-col gap-2 lg:gap-4">
                 <h2>Get an Instant Quote</h2>

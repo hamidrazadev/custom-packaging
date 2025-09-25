@@ -1,4 +1,6 @@
+import AccurateQuoteIn7Mins from "@/components/common/AccurateQuoteIn7Mins";
 import Hero from "@/components/IndustryDetails/Hero";
+import ProductsOfIndustry from "@/components/IndustryDetails/ProductsOfIndustry";
 import TopBreadCrumb from "@/components/IndustryDetails/TopBreadCrumb";
 import fs from "fs";
 import path from "path";
@@ -25,6 +27,8 @@ export default async function Page({ params }) {
         <div className="flex flex-col gap-2 py-4">
             <TopBreadCrumb data={{ industry_name }} />
             <Hero heroData={heroData} />
+            <ProductsOfIndustry products={data.products} />
+            <AccurateQuoteIn7Mins />
         </div>
     );
 }
