@@ -80,6 +80,10 @@
   @apply bg-accent hover:bg-primary text-white px-4 lg:px-6 py-2 rounded-lg font-medium text-sm transition-all duration-300;
 }
 
+.btn-lg {
+  @apply bg-accent hover:bg-primary text-white px-4 lg:px-6 py-3 rounded-lg font-medium text-lg transition-all duration-300;
+}
+
 .transparent-input {
   @apply w-full px-2 py-2 border border-accent text-primary focus:border-primary rounded-lg outline-none bg-transparent;
 }
@@ -90,4 +94,12 @@ h1 {
 
 p {
   @apply lg:text-lg sm:text-base text-sm text-accent-foreground
+}
+
+.link-md {
+  @apply flex items-center justify-center text-base text-accent hover:text-primary;
+}
+
+h2 {
+  @apply xl:text-3xl lg:text-2xl md:text-xl sm:text-lg text-base font-semibold text-accent
 }

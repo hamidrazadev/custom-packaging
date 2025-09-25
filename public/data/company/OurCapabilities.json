@@ -1,0 +1,48 @@
+{
+    "title": "Our Capabilities",
+    "description": "At Half Price Packaging, we are committed to delivering exceptional packaging solutions customized to your needs. From innovative design to seamless delivery, we ensure excellence at every step, bringing your vision to life with precision and care.",
+    "cards": [
+        {
+            "title": "Global Sourcing",
+            "icon": "fa-solid fa-globe"
+        },
+        {
+            "title": "Price Match Guarantee",
+            "icon": "fa-solid fa-badge-check"
+        },
+        {
+            "title": "3D Design Services",
+            "icon": "fa-solid fa-cubes"
+        },
+        {
+            "title": "Flexible Lead Times",
+            "icon": "fa-solid fa-clock-rotate-left"
+        },
+        {
+            "title": "High-Volume Printing",
+            "icon": "fa-solid fa-print"
+        },
+        {
+            "title": "24/7 Support",
+            "icon": "fa-solid fa-headset"
+        },
+        {
+            "title": "Custom Payment Plans",
+            "icon": "fa-solid fa-credit-card"
+        },
+        {
+            "title": "Warehousing & Inventory",
+            "icon": "fa-solid fa-boxes-stacked"
+        }
+    ],
+    "buttons": [
+        {
+            "text": "Explore all industries",
+            "href": "/industries"
+        },
+        {
+            "text": "Get a Quote",
+            "href": "/contact"
+        }
+    ]
+}
