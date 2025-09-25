@@ -8,11 +8,9 @@ import ClientSuccessStories from '../components/ClientSuccessStories';
 import FAQ from '../components/FAQ';
 import OurCapabilities from '../components/OurCapabilities';
 import Contact from '../components/ContactForm';
-import Footer from '../components/Footer';
 import Carousel from '../components/Carousel';
 import About from '../components/About';
 import CustomPackagingSection from '../components/CustomPackaging';
-import Header from '../components/Navigation';
 
 const featuredProducts = [
     {
@@ -123,7 +121,7 @@ const topSellingIndustries = [
 const Home = () => {
     return (
         <div className="min-h-screen bg-white">
-            <Header />
+            
             <Hero />
             <About />
             <CustomPackagingSection />
@@ -160,7 +158,7 @@ const Home = () => {
             />
             <OurCapabilities />
             <Contact />
-            <Footer />
+            
         </div>
     );
 };

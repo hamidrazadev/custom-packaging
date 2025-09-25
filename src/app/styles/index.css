@@ -71,3 +71,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+.link-for-icon {
+  @apply flex items-center justify-center text-2xl text-accent hover:text-primary;
+}
+
+.btn {
+  @apply bg-accent hover:bg-primary text-white px-4 lg:px-6 py-2 rounded-lg font-medium text-sm transition-all duration-300;
+}
+
+.transparent-input {
+  @apply w-full px-2 py-2 border border-accent text-primary focus:border-primary rounded-lg outline-none bg-transparent;
+}
+
+h1 {
+  @apply xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl text-lg font-bold text-accent
+}
+
+p {
+  @apply lg:text-lg sm:text-base text-sm text-accent-foreground
+}

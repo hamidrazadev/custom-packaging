@@ -21,7 +21,7 @@ const Header = () => {
         },
         {
             name: 'Industries',
-            href: '#industries',
+            href: '/industries',
             hasDropdown: true,
             dropdownItems: [
                 { name: 'Cosmetic and Skincare', img: "https://www.halfpricepackaging.com/_ipx/f_webp&fit_cover&s_220x220/images/home-featured-industries/cosmetics-boxes.jpg" },
@@ -91,7 +91,7 @@ const Header = () => {
 
     return (
         <div className="border-b border-gray-200 bg-white shadow-md w-full z-50 sticky top-0">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16 lg:h-20">
                     <Link href="/" className="flex items-center">
                         <h1 className="text-3xl font-bold text-accent">
@@ -118,8 +118,8 @@ const Header = () => {
                 </div>
             </div>
 
-            <div className="border-t border-gray-200 bg-white hidden md:block">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="border-t border-gray-200 bg-white hidden lg:block">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-14">
                         <div className="flex items-center space-x-8">
                             {menuItems.map((item) => (
