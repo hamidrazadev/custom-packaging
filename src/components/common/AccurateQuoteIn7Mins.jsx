@@ -1,6 +1,47 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { ChevronDown, Upload, X } from "lucide-react";
+
+// 🔹 Reusable Input
+const InputField = ({ name, placeholder, type = "text", formData, errors, handleInputChange }) => (
+    <div>
+        <input
+            type={type}
+            name={name}
+            placeholder={placeholder}
+            value={formData[name] || ""}
+            onChange={handleInputChange}
+            autoComplete="off"
+            className={`w-full px-4 py-3 bg-white border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${errors[name] ? "border-red-500" : "border-gray-300"}`}
+        />
+        {errors[name] && (
+            <p className="text-red-500 text-sm mt-1">{errors[name]}</p>
+        )}
+    </div>
+);
+
+// 🔹 Reusable Select
+const SelectField = ({ name, placeholder, options = [], formData, errors, handleInputChange }) => (
+    <div className="relative">
+        <select
+            name={name}
+            value={formData[name] || ""}
+            onChange={handleInputChange}
+            className={`w-full px-4 py-3 bg-white border rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-gray-700 ${errors[name] ? "border-red-500" : "border-gray-300"}`}
+        >
+            <option value="">{placeholder}</option>
+            {options.map((option, index) => (
+                <option key={index} value={option}>
+                    {option}
+                </option>
+            ))}
+        </select>
+        <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+        {errors[name] && (
+            <p className="text-red-500 text-sm mt-1">{errors[name]}</p>
+        )}
+    </div>
+);
 
 const AccurateQuoteIn7Mins = () => {
     const [formData, setFormData] = useState({
@@ -24,24 +65,25 @@ const AccurateQuoteIn7Mins = () => {
 
     const [errors, setErrors] = useState({});
 
-    const handleInputChange = (e) => {
+    // 🔹 Handle text/select inputs
+    const handleInputChange = useCallback((e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
             [name]: value,
         }));
-    };
+    }, []);
 
+    // 🔹 Handle file uploads
     const handleFileChange = (e) => {
-        const files = e.target.files;
-        if (files) {
-            setFormData((prev) => ({
-                ...prev,
-                files: Array.from(files),
-            }));
-        }
+        const files = Array.from(e.target.files || []);
+        setFormData((prev) => ({
+            ...prev,
+            files: [...prev.files, ...files],
+        }));
     };
 
+    // 🔹 Remove uploaded file
     const handleRemoveFile = (index) => {
         setFormData((prev) => ({
             ...prev,
@@ -49,6 +91,7 @@ const AccurateQuoteIn7Mins = () => {
         }));
     };
 
+    // 🔹 Validation rules
     const validateForm = () => {
         const newErrors = {};
 
@@ -70,70 +113,35 @@ const AccurateQuoteIn7Mins = () => {
         return Object.keys(newErrors).length === 0;
     };
 
+    // 🔹 Submit handler
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if (!validateForm()) return;
 
         const formPayload = new FormData();
-        Object.keys(formData).forEach((key) => {
+        Object.entries(formData).forEach(([key, value]) => {
             if (key === "files") {
-                formData.files.forEach((file) => {
-                    formPayload.append("files", file);
-                });
+                value.forEach((file) => formPayload.append("files", file));
             } else {
-                formPayload.append(key, formData[key]);
+                formPayload.append(key, value);
             }
         });
 
-        console.log("Form submitted:", Object.fromEntries(formPayload));
+        // ✅ Log all form data
+        console.log("Form submitted:");
+        for (let [key, val] of formPayload.entries()) {
+            console.log(`${key}:`, val);
+        }
 
-        // Example fetch (replace with your API endpoint)
+        // Example API request
         // fetch("/api/quote", { method: "POST", body: formPayload })
         //   .then(res => res.json())
         //   .then(data => console.log("Response:", data))
         //   .catch(err => console.error("Error:", err));
     };
 
-    const SelectField = ({ name, placeholder, options = [] }) => (
-        <div className="relative">
-            <select
-                name={name}
-                value={formData[name]}
-                onChange={handleInputChange}
-                className={`w-full px-4 py-3 bg-white border rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-gray-700 ${errors[name] ? "border-red-500" : "border-gray-300"
-                    }`}
-            >
-                <option value="">{placeholder}</option>
-                {options.map((option, index) => (
-                    <option key={index} value={option}>
-                        {option}
-                    </option>
-                ))}
-            </select>
-            <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
-            {errors[name] && (
-                <p className="text-red-500 text-sm mt-1">{errors[name]}</p>
-            )}
-        </div>
-    );
 
-    const InputField = ({ name, placeholder, type = "text" }) => (
-        <div>
-            <input
-                type={type}
-                name={name}
-                placeholder={placeholder}
-                value={formData[name]}
-                onChange={handleInputChange}
-                className={`w-full px-4 py-3 bg-white border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${errors[name] ? "border-red-500" : "border-gray-300"
-                    }`}
-            />
-            {errors[name] && (
-                <p className="text-red-500 text-sm mt-1">{errors[name]}</p>
-            )}
-        </div>
-    );
 
     return (
         <div className="min-h-screen bg-secondary py-8 px-4">
@@ -155,13 +163,16 @@ const AccurateQuoteIn7Mins = () => {
                 >
                     {/* Top Row - Contact Info */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                        <InputField name="fullName" placeholder="Full Name*" />
-                        <InputField name="phone" placeholder="Phone*" />
-                        <InputField name="email" placeholder="Email*" type="email" />
+                        <InputField name="fullName" placeholder="Full Name*" formData={formData} errors={errors} handleInputChange={handleInputChange} />
+                        <InputField name="phone" placeholder="Phone*" formData={formData} errors={errors} handleInputChange={handleInputChange} />
+                        <InputField name="email" placeholder="Email*" type="email" formData={formData} errors={errors} handleInputChange={handleInputChange} />
                         <SelectField
                             name="boxType"
                             placeholder="Select Box Type*"
                             options={["Custom Box", "Shipping Box", "Product Box", "Gift Box"]}
+                            formData={formData}
+                            errors={errors}
+                            handleInputChange={handleInputChange}
                         />
                     </div>
 
@@ -171,10 +182,13 @@ const AccurateQuoteIn7Mins = () => {
                             name="material"
                             placeholder="Select Material"
                             options={["Cardboard", "Corrugated", "Kraft Paper", "Rigid"]}
+                            formData={formData}
+                            errors={errors}
+                            handleInputChange={handleInputChange}
                         />
-                        <InputField name="length" placeholder="Length" />
-                        <InputField name="width" placeholder="Width" />
-                        <InputField name="height" placeholder="Height" />
+                        <InputField name="length" placeholder="Length" formData={formData} errors={errors} handleInputChange={handleInputChange} />
+                        <InputField name="width" placeholder="Width" formData={formData} errors={errors} handleInputChange={handleInputChange} />
+                        <InputField name="height" placeholder="Height" formData={formData} errors={errors} handleInputChange={handleInputChange} />
                     </div>
 
                     {/* Third Row - Additional Options */}
@@ -183,22 +197,34 @@ const AccurateQuoteIn7Mins = () => {
                             name="dimensionUnit"
                             placeholder="Select Dimension Unit"
                             options={["Inches", "CM", "MM"]}
+                            formData={formData}
+                            errors={errors}
+                            handleInputChange={handleInputChange}
                         />
-                        <InputField name="quantity" placeholder="Quantity (min: 200)*" />
+                        <InputField name="quantity" placeholder="Quantity (min: 200)*" formData={formData} errors={errors} handleInputChange={handleInputChange} />
                         <SelectField
                             name="printingSides"
                             placeholder="Select Printing Sides"
                             options={["No Printing", "1 Side", "2 Sides", "4 Sides"]}
+                            formData={formData}
+                            errors={errors}
+                            handleInputChange={handleInputChange}
                         />
                         <SelectField
                             name="cardThickness"
                             placeholder="Select Card Thickness"
                             options={["12pt", "14pt", "16pt", "18pt"]}
+                            formData={formData}
+                            errors={errors}
+                            handleInputChange={handleInputChange}
                         />
                         <SelectField
                             name="coatingLamination"
                             placeholder="Select Coating Lamination"
                             options={["None", "Gloss", "Matte", "Spot UV"]}
+                            formData={formData}
+                            errors={errors}
+                            handleInputChange={handleInputChange}
                         />
                     </div>
 
@@ -208,6 +234,9 @@ const AccurateQuoteIn7Mins = () => {
                             name="extraFinishing"
                             placeholder="Select Extra Finishing"
                             options={["None", "Embossing", "Debossing", "Foil Stamping"]}
+                            formData={formData}
+                            errors={errors}
+                            handleInputChange={handleInputChange}
                         />
                     </div>
 
@@ -216,7 +245,7 @@ const AccurateQuoteIn7Mins = () => {
                         <textarea
                             name="specifications"
                             placeholder="Provide detailed packaging specifications including dimensions, materials, weight restrictions, and design references and we'll get back to you with an instant quote."
-                            value={formData.specifications}
+                            value={formData.specifications || ""}
                             onChange={handleInputChange}
                             rows={4}
                             className="w-full px-4 py-3 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
@@ -250,7 +279,10 @@ const AccurateQuoteIn7Mins = () => {
                                 <p className="text-sm text-gray-600 mb-2">Selected Files:</p>
                                 <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
                                     {formData.files.map((file, index) => (
-                                        <li key={index} className="flex items-center justify-between">
+                                        <li
+                                            key={index}
+                                            className="flex items-center justify-between"
+                                        >
                                             <span>{file.name}</span>
                                             <button
                                                 type="button"

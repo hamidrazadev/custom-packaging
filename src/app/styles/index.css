@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  @apply transition-all;
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
 
 :root {
@@ -101,5 +105,9 @@ p {
 }
 
 h2 {
-  @apply xl:text-3xl lg:text-2xl md:text-xl sm:text-lg text-base font-semibold text-accent-foreground
+  @apply lg:text-3xl md:text-2xl text-xl font-semibold text-accent-foreground
+}
+
+.AccordionTrigger[data-state="open"]>.AccordionChevron {
+  transform: rotate(90deg);
 }

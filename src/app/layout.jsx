@@ -24,13 +24,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         {/* <!-- Font Awesome 6 --> */}
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-          integrity="sha512-KJ3oEiA+M7ft5F5aXQHRu4P7rjICh7PiNqjHn+8Afxv2kcyfMvKZsHlPpK47w6+Lfyxr6S1A1UjE9qZyWjZ+DQ=="
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

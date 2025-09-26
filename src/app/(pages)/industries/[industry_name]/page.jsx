@@ -4,6 +4,10 @@ import ProductsOfIndustry from "@/components/IndustryDetails/ProductsOfIndustry"
 import TopBreadCrumb from "@/components/IndustryDetails/TopBreadCrumb";
 import fs from "fs";
 import path from "path";
+import LearnMore from "@/components/IndustryDetails/LearnMore";
+import FooterContactForm from "@/components/common/FooterContactForm";
+import OurCapabilities from "@/components/common/OurCapabilities";
+import FAQs from "@/components/common/FAQs";
 
 export default async function Page({ params }) {
     const { industry_name } = await params;
@@ -24,11 +28,17 @@ export default async function Page({ params }) {
     }
 
     return (
-        <div className="flex flex-col gap-2 py-4">
+        <div className="flex flex-col pt-4">
             <TopBreadCrumb data={{ industry_name }} />
             <Hero heroData={heroData} />
             <ProductsOfIndustry products={data.products} />
+            <LearnMore data={data.learn_more} />
             <AccurateQuoteIn7Mins />
+            <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8 gap-4 w-full container mx-auto py-4 lg:py-8">
+                <OurCapabilities />
+                <FAQs faqs={data.faqs} />
+            </div>
+            <FooterContactForm />
         </div>
     );
 }
