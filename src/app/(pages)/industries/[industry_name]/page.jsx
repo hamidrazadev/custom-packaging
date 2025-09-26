@@ -31,7 +31,7 @@ export default async function Page({ params }) {
         <div className="flex flex-col pt-4">
             <TopBreadCrumb data={{ industry_name }} />
             <Hero heroData={heroData} />
-            <ProductsOfIndustry products={data.products} />
+            <ProductsOfIndustry products={data.products} isToNextPage={data.isToNextPage} />
             <LearnMore data={data.learn_more} />
             <AccurateQuoteIn7Mins />
             <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8 gap-4 w-full container mx-auto py-4 lg:py-8">

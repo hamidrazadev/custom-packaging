@@ -159,7 +159,7 @@ export default function FooterContactForm() {
                             fill
                             src="/assets/images/FooterContactForm.png"
                             alt="Box Sample Kit"
-                            className="w-auto h-full object-contain"
+                            className="h-full object-contain absolute w-[70%]"
                         />
                     </div>
                 </div>
