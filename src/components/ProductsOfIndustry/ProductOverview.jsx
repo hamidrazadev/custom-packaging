@@ -20,7 +20,7 @@ export default function ProductOverview({ overview }) {
                         </ul>
                     </div>
                     <div className="flex items-center justify-center order-1 lg:order-2">
-                        <Image src={overview.image} alt={overview.title} className='rounded-lg shadow-lg' width={500} height={500} />
+                        <Image src={overview.image} alt={overview.title} className='rounded-lg shadow-lg' width={600} height={600} />
                     </div>
                 </div>
             </div>

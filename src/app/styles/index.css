@@ -111,3 +111,8 @@ h2 {
 .AccordionTrigger[data-state="open"]>.AccordionChevron {
   transform: rotate(90deg);
 }
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
