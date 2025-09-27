@@ -17,3 +17,7 @@ export function unslugify(slug) {
         })
         .join(' ');
 }
+
+export function extractName(str) {
+    return str.split(" id:")[0].replace(/-\d+$/, "").trim();
+}

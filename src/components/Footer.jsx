@@ -1,5 +1,6 @@
 import React from 'react';
 import { Phone, Mail, MapPin } from 'lucide-react';
+import comapnyInfo from 'constants/comapnyInfo';
 
 const Footer = () => {
     const industries = [
@@ -56,15 +57,15 @@ const Footer = () => {
                         <div className="space-y-3">
                             <div className="flex items-center">
                                 <Phone size={16} className="mr-3 text-secondary" />
-                                <span>(866) 225-2112</span>
+                                <span>{comapnyInfo.phone}</span>
                             </div>
                             <div className="flex items-center">
                                 <Mail size={16} className="mr-3 text-secondary" />
-                                <span>info@custompackaging.com</span>
+                                <span>{comapnyInfo.email}</span>
                             </div>
                             <div className="flex items-center">
                                 <MapPin size={16} className="mr-3 text-secondary" />
-                                <span>123 Packaging Ave, Suite 100<br />Los Angeles, CA 90210</span>
+                                <span>{comapnyInfo.address}</span>
                             </div>
                         </div>
                     </div>

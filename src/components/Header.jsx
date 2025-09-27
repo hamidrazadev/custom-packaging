@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Phone, Mail, Menu, X } from 'lucide-react';
+import companyInfo from 'constants/comapnyInfo';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,11 +36,11 @@ const Header = () => {
                     <div className="flex items-center space-x-6">
                         <div className="flex items-center space-x-2">
                             <Phone size={16} />
-                            <span>(866) 225-2112</span>
+                            <span>{companyInfo.phone}</span>
                         </div>
                         <div className="flex items-center space-x-2">
                             <Mail size={16} />
-                            <span>info@custompackaging.com</span>
+                            <span>{companyInfo.email}</span>
                         </div>
                     </div>
                     <button className="bg-secondary text-accent px-4 py-1 rounded-full hover:bg-yellow-500 transition-colors">

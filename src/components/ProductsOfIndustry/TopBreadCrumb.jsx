@@ -2,7 +2,7 @@ import React from 'react'
 import { TbHome } from "react-icons/tb";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import Link from 'next/link'
-import { unslugify } from 'utils/formatting';
+import { unslugify } from '@/utils/formatting';
 
 export default function TopBreadCrumb({ data }) {
     return (
@@ -11,11 +11,11 @@ export default function TopBreadCrumb({ data }) {
                 <TbHome />
             </Link>
             <MdOutlineKeyboardArrowRight className='text-2xl' />
-            <Link href={`/industries`} className="link-md">
+            <Link href={`/industry`} className="link-md">
                 <span>Industries</span>
             </Link>
             <MdOutlineKeyboardArrowRight className='text-2xl' />
-            <Link href={`/industries/${data.industry_name}`} className="link-md">
+            <Link href={`/industry/${data.industry_name}`} className="link-md">
                 <span>{unslugify(data.industry_name)}</span>
             </Link>
             <MdOutlineKeyboardArrowRight className='text-2xl' />

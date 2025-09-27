@@ -6,7 +6,7 @@ import PackagingStyles from 'public/data/company/PackagingStyles.json';
 import SidebarForFilter from './SidebarForFilter';
 import Image from 'next/image';
 import Link from 'next/link';
-import { slugify } from 'utils/formatting';
+import { slugify } from '@/utils/formatting';
 import ScreenForFilter from './ScreenForFilter';
 import { RiFilter2Line } from "react-icons/ri";
 import Skeleton from 'react-loading-skeleton'

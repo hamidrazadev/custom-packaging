@@ -7,6 +7,11 @@ const nextConfig = {
                 hostname: "www.halfpricepackaging.com",
                 pathname: "/**",
             },
+            {
+                protocol: "https",
+                hostname: "apiv1.boxprintinghub.com",
+                pathname: "/**",
+            },
         ],
     },
 };

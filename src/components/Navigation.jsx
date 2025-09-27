@@ -21,7 +21,7 @@ const Header = () => {
         },
         {
             name: 'Industries',
-            href: '/industries',
+            href: '/industry',
             hasDropdown: true,
             dropdownItems: [
                 { name: 'Cosmetic and Skincare', img: "https://www.halfpricepackaging.com/_ipx/f_webp&fit_cover&s_220x220/images/home-featured-industries/cosmetics-boxes.jpg" },
@@ -107,7 +107,7 @@ const Header = () => {
                                 (866) 225-2112
                             </div>
                         </div>
-                        <a href="#" onClick={()=> setOpen(true)} className="bg-accent hover:bg-primary text-white px-4 lg:px-6 py-2 rounded-lg font-medium text-sm transition-all duration-300">
+                        <a href="#" onClick={() => setOpen(true)} className="bg-accent hover:bg-primary text-white px-4 lg:px-6 py-2 rounded-lg font-medium text-sm transition-all duration-300">
                             Want to Consult?
                         </a>
                     </div>
@@ -130,23 +130,23 @@ const Header = () => {
                                     </a>
 
                                     {item.dropdownItems.length > 0 && (
-                                     activeDropdown === item.name && (
-                                        <div className="absolute left-0 top-full mt-4 bg-white shadow-lg border border-gray-200 p-6 w-[800px] grid grid-cols-2 lg:grid-cols-4 gap-6 transition-all duration-300 z-50" onMouseEnter={() => handleMouseEnter(item.name)} onMouseLeave={handleMouseLeave}>
-                                            {item.dropdownItems.map((dropdownItem, index) => (
-                                                <a key={index} href="#" className="flex flex-col items-center text-center hover:shadow-lg p-3 rounded-lg transition-all duration-200 hover:scale-105">
-                                                    <img src={dropdownItem.img} alt={dropdownItem.name} className="w-32 h-32 object-cover rounded-md mb-2" />
-                                                    <span className="text-sm font-medium text-gray-700">{dropdownItem.name}</span>
-                                                </a>
-                                            ))}
-                                            {/* <a href="#" className="flex flex-col items-center justify-between text-center hover:shadow-lg p-3 rounded-lg transition-all duration-200 hover:scale-105">
+                                        activeDropdown === item.name && (
+                                            <div className="absolute left-0 top-full mt-4 bg-white shadow-lg border border-gray-200 p-6 w-[800px] grid grid-cols-2 lg:grid-cols-4 gap-6 transition-all duration-300 z-50" onMouseEnter={() => handleMouseEnter(item.name)} onMouseLeave={handleMouseLeave}>
+                                                {item.dropdownItems.map((dropdownItem, index) => (
+                                                    <a key={index} href="#" className="flex flex-col items-center text-center hover:shadow-lg p-3 rounded-lg transition-all duration-200 hover:scale-105">
+                                                        <img src={dropdownItem.img} alt={dropdownItem.name} className="w-32 h-32 object-cover rounded-md mb-2" />
+                                                        <span className="text-sm font-medium text-gray-700">{dropdownItem.name}</span>
+                                                    </a>
+                                                ))}
+                                                {/* <a href="#" className="flex flex-col items-center justify-between text-center hover:shadow-lg p-3 rounded-lg transition-all duration-200 hover:scale-105">
                                                 <p className="text-start font-medium text-gray-700">Explore more than 1000+ products across various categories</p>
                                                 <div className="w-32 h-32 rounded-md mb-2 flex items-center justify-center bg-gray-100">
                                                     <span className="text-sm font-medium text-gray-700">View All</span>
                                                 </div>
                                             </a> */}
-                                        </div>
-                                    )
-                                )}
+                                            </div>
+                                        )
+                                    )}
 
                                 </div>
                             ))}
@@ -184,7 +184,7 @@ const Header = () => {
                             </div>
                         ))}
                         <div className="flex flex-col space-y-2 mt-4">
-                            <a href="#" onClick={()=> setOpen(true)} className="bg-accent hover:bg-primary text-white px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 text-center">
+                            <a href="#" onClick={() => setOpen(true)} className="bg-accent hover:bg-primary text-white px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 text-center">
                                 Request A Quote
                             </a>
                             <div className="flex items-center justify-center text-accent font-bold text-sm">

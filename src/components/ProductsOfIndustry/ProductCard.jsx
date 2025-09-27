@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { slugify } from 'utils/formatting'
+import { slugify } from '@/utils/formatting'
 
 export default function ProductCard({ product, industry_name }) {
     return (

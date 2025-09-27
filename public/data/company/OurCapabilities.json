@@ -38,7 +38,7 @@
     "buttons": [
         {
             "text": "Explore all industries",
-            "href": "/industries"
+            "href": "/industry"
         },
         {
             "text": "Get a Quote",
