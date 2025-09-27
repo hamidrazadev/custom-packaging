@@ -37,7 +37,7 @@ export default async function page({ params }) {
             <ProductOverview overview={data.overview} />
             <InfoTabs />
             <LearnMore data={data.learn_more} />
-            <RelatedProducts />
+            <RelatedProducts industry_name={industry_name} products={data.related_products} />
             <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8 gap-4 w-full container mx-auto py-4 lg:py-8">
                 <OurCapabilities />
                 <FAQs faqs={data.faqs} />
