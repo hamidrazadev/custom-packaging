@@ -1,0 +1,114 @@
+[
+  {
+    "title": "Premium Candle Boxes",
+    "image": "https://www.halfpricepackaging.com/storage/product_uploads/candle-boxes.jpg",
+    "min_units": "150",
+    "delivery": "3 weeks",
+    "industry": [
+      "Candle",
+      "Gift",
+      "Holiday"
+    ],
+    "packaging_style": [
+      "Custom Shapes",
+      "Window Boxes",
+      "Kraft Boxes"
+    ]
+  },
+  {
+    "title": "CBD Mylar and Tincture Boxes",
+    "image": "https://www.halfpricepackaging.com/storage/product_uploads/cbd-packaging.jpg",
+    "min_units": "300",
+    "delivery": "3 weeks",
+    "industry": [
+      "CBD",
+      "Pharma",
+      "Marijuana & Cannabis"
+    ],
+    "packaging_style": [
+      "Mylar Bags",
+      "Custom Tincture Boxes",
+      "Child Resistant"
+    ]
+  },
+  {
+    "title": "Vape Cartridge Packaging",
+    "image": "https://www.halfpricepackaging.com/storage/product_uploads/vape-packaging.jpg",
+    "min_units": "200",
+    "delivery": "3 weeks",
+    "industry": [
+      "Vape & E-Cigarette",
+      "Retail",
+      "Electronics"
+    ],
+    "packaging_style": [
+      "Child Resistant",
+      "Rigid Boxes",
+      "Labels Stickers"
+    ]
+  },
+  {
+    "title": "Soap Subscription Boxes",
+    "image": "https://www.halfpricepackaging.com/storage/product_uploads/soap-boxes.jpg",
+    "min_units": "180",
+    "delivery": "2 weeks",
+    "industry": [
+      "Soap",
+      "Gift",
+      "Ecommerce"
+    ],
+    "packaging_style": [
+      "Subscription Boxes",
+      "Sleeve and Tray",
+      "Tuck Boxes"
+    ]
+  },
+  {
+    "title": "Perfume and Fragrance Boxes",
+    "image": "https://www.halfpricepackaging.com/storage/product_uploads/perfume-boxes.jpg",
+    "min_units": "200",
+    "delivery": "4 weeks",
+    "industry": [
+      "Fragrance",
+      "Cosmetics",
+      "Luxury"
+    ],
+    "packaging_style": [
+      "Rigid Boxes",
+      "Sleeve and Tray",
+      "Custom Shapes"
+    ]
+  },
+  {
+    "title": "Sports Nutrition Packaging",
+    "image": "https://www.halfpricepackaging.com/storage/product_uploads/sports-boxes.jpg",
+    "min_units": "250",
+    "delivery": "3 weeks",
+    "industry": [
+      "Sports",
+      "Food & Restaurant",
+      "Ecommerce"
+    ],
+    "packaging_style": [
+      "Cardboard Boxes",
+      "Custom Paper Tubes",
+      "Labels Stickers"
+    ]
+  },
+  {
+    "title": "Wine & Liquor Gift Boxes",
+    "image": "https://www.halfpricepackaging.com/storage/product_uploads/wine-boxes.jpg",
+    "min_units": "150",
+    "delivery": "4 weeks",
+    "industry": [
+      "Beverage, Wine, Liquor",
+      "Holiday",
+      "Gift"
+    ],
+    "packaging_style": [
+      "Rigid Boxes",
+      "Custom Mailer Boxes",
+      "Window Boxes"
+    ]
+  }
+]

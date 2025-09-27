@@ -19,8 +19,8 @@ export default function ProductCard({ product, isToNextPage }) {
             <button onClick={onClickBtn} className='hover:shadow-xl rounded-xl transition-all duration-500 bg-white w-full h-full flex flex-col gap-2 hover:scale-[1.05] border border-gray-300'>
                 <Image src={`${product.image}`} width={300} height={300} className='rounded-xl' />
                 <div className="flex flex-col gap-2 px-2 py-4">
-                    <span className='text-sm'>Min. {product.min_units} units · Delivery: {product.delivery}</span>
-                    <span className='font-semibold'>{product.title}</span>
+                    <span className='text-sm text-start'>Min. {product.min_units} units · Delivery: {product.delivery}</span>
+                    <span className='font-semibold text-start'>{product.title}</span>
                 </div>
             </button>
             <FormDialog open={open} onOpenChange={setOpen} />
