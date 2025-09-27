@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Phone, Mail, MapPin, MessageSquare } from 'lucide-react';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "./ui/select"
+import comapnyInfo from 'constants/comapnyInfo'
 
 const ContactForm = () => {
     const [formData, setFormData] = useState({
@@ -51,7 +52,7 @@ const ContactForm = () => {
                                     <Phone className="text-primary mr-3" size={24} />
                                     <div>
                                         <h3 className="font-semibold text-accent">Call Our Experts</h3>
-                                        <p className="text-gray-600">(866) 225-2112</p>
+                                        <p className="text-gray-600">{comapnyInfo.phone}</p>
                                     </div>
                                 </div>
                                 <p className="text-sm text-gray-500">
@@ -66,7 +67,7 @@ const ContactForm = () => {
                                     <Mail className="text-primary mr-3" size={24} />
                                     <div>
                                         <h3 className="font-semibold text-accent">Email Us</h3>
-                                        <p className="text-gray-600">info@custompackaging.com</p>
+                                        <p className="text-gray-600">{comapnyInfo.email}</p>
                                     </div>
                                 </div>
                                 <p className="text-sm text-gray-500">
@@ -96,8 +97,7 @@ const ContactForm = () => {
                                     <MapPin className="text-primary mr-3" size={24} />
                                     <div>
                                         <h3 className="font-semibold text-accent">Visit Us</h3>
-                                        <p className="text-gray-600">123 Packaging Ave, Suite 100</p>
-                                        <p className="text-gray-600">Los Angeles, CA 90210</p>
+                                        <p className="text-gray-600">{comapnyInfo.address}</p>
                                     </div>
                                 </div>
                             </CardContent>
@@ -191,19 +191,19 @@ const ContactForm = () => {
                                                 Packaging Type *
                                             </label>
                                             <Select
-                                            value={formData.packagingType}
-                                            onValueChange={(value) =>
-                                                setFormData({ ...formData, packagingType: value })
-                                            }
+                                                value={formData.packagingType}
+                                                onValueChange={(value) =>
+                                                    setFormData({ ...formData, packagingType: value })
+                                                }
                                             >
-                                            <SelectTrigger className="w-full">
-                                                <SelectValue placeholder="Select packaging type" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="box">Box</SelectItem>
-                                                <SelectItem value="bag">Bag</SelectItem>
-                                                <SelectItem value="custom">Custom</SelectItem>
-                                            </SelectContent>
+                                                <SelectTrigger className="w-full">
+                                                    <SelectValue placeholder="Select packaging type" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="box">Box</SelectItem>
+                                                    <SelectItem value="bag">Bag</SelectItem>
+                                                    <SelectItem value="custom">Custom</SelectItem>
+                                                </SelectContent>
                                             </Select>
                                         </div>
                                         <div>

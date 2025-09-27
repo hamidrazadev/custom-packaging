@@ -50,7 +50,7 @@ export default function Hero({ heroData }) {
                                         cursor-pointer rounded-lg transition-all duration-300 ease-in-out
                                         hover:scale-105 hover:shadow-lg
                                         ${index === imageIndx 
-                                            ? "ring-4 ring-accent shadow-lg scale-105" 
+                                            ? "ring-4 ring-gray-500 shadow-lg scale-105" 
                                             : "ring-2 ring-gray-200 hover:ring-gray-300 opacity-70 hover:opacity-100"
                                         }
                                     `} 
@@ -60,14 +60,14 @@ export default function Hero({ heroData }) {
                     </div>
                     
                     {/* Main Image Display */}
-                    <div className="relative group">
-                        <div className="relative overflow-hidden rounded-lg border-2 border-dashed border-accent">
+                    <div className="relative group w-full">
+                        <div className="relative overflow-hidden rounded-lg border-2 border-dashed border-gray-500">
                             <Image 
                                 className='w-full h-64 sm:h-80 md:h-96 lg:h-[420px] object-cover transition-all duration-500 ease-in-out transform group-hover:scale-105' 
                                 alt={`${heroData.title} main image`} 
                                 src={heroData.images[imageIndx]} 
-                                width={420} 
-                                height={420}
+                                width={500} 
+                                height={500}
                                 priority={imageIndx === 0}
                             />
                             
