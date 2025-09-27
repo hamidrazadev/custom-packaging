@@ -8,7 +8,7 @@ import ClientSuccessStories from '../components/ClientSuccessStories';
 import FAQ from '../components/FAQ';
 import OurCapabilities from '../components/OurCapabilities';
 import Contact from '../components/ContactForm';
-import Carousel from '../components/Carousel';
+// import Carousel from '../components/Carousel';
 import About from '../components/About';
 import CustomPackagingSection from '../components/CustomPackaging';
 
