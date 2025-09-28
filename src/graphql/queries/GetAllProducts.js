@@ -1,7 +1,14 @@
-export const GetAllProducts = `query GetProducts($first:Int) {
-  products(first: $first) {
+export const GetAllProducts = `query GetProducts($first:Int, $after:String, $last:Int, $before:String) {
+  products(first: $first, after:$after, last:$last, before:$before) {
+    pageInfo{
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+      
     nodes {
-      id
+      id: databaseId
       title
       slug
       status
@@ -89,7 +96,38 @@ export const GetAllProducts = `query GetProducts($first:Int) {
         ...productFaqs
       }
       
+      deliveryInfo{
+        deliveryTime
+        moq
+      }
+      
+      
+      gallery{
+        productGallery{
+          fullFileUrl
+          mediumfullFileUrl
+          thumbnailfullFileUrl
+        }
+      }
+      industries{
+        nodes{
+          id:databaseId
+          slug
+          name
+          description
+          industryInformation{
+            iindustryFeaturedImage{
+              node{
+                id:databaseId
+                guid
+              }
+            }
+          }
+        }
+        
+      }
     }
+  
   }
 }
 
@@ -130,6 +168,7 @@ fragment productMaterialImages on ProductMaterial{
             altText
           }
         }
+  
 }
 
 fragment  productFaqs on ProductFaqs{

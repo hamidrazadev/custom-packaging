@@ -2,18 +2,18 @@ import Hero from '@/components/catalogue/Hero'
 import Main from '@/components/catalogue/Main'
 import { GetAllIndustries } from '@/services/Industries';
 import { GetAllPackagingStyles } from '@/services/PackagingStyles';
-import { GetAllProducts } from '@/services/Products';
 import React from 'react'
 
 export default async function page() {
-    const allProducts = await GetAllProducts();
+    // Fetch filters on server
     const allIndustries = await GetAllIndustries();
-    const allPackagingStyles = await GetAllPackagingStyles()
-    // console.log("allPackagingStyles", allPackagingStyles);
+    const allPackagingStyles = await GetAllPackagingStyles();
+
     return (
-        <div className='flex flex-col'>
+        <div className="flex flex-col">
             <Hero />
-            <Main allPackagingStyles={allPackagingStyles} allIndustries={allIndustries} allProducts={allProducts} />
+            {/* Only send filters; let <Main /> handle paginated fetching */}
+            <Main allPackagingStyles={allPackagingStyles} allIndustries={allIndustries} />
         </div>
-    )
+    );
 }

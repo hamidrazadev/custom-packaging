@@ -3,11 +3,9 @@ import { GetAnIndustry } from "@/graphql/queries/GetAnIndustry";
 import { GetAPackagingStyle } from "@/graphql/queries/GetAPackagingStyle";
 import { graphqlClient } from "@/lib/graphqlClient";
 
-export async function GetAllProducts() {
-    const allProducts = await graphqlClient(GetAllProductsQuery, { first: 20 });
-    // console.log("allProducts", allProducts.products.nodes);
-
-    return allProducts.products.nodes
+export async function GetAllProducts({ first = 20, after = null, last = null, before = null }) {
+    const res = await graphqlClient(GetAllProductsQuery, { first, after, last, before });
+    return res.products; // contains { nodes, pageInfo }
 }
 
 export async function GetAllProductsOfIndustry(industry_id) {
