@@ -25,12 +25,22 @@ export const GetAnIndustry = `query industryData($id: ID!) {
           guid
         }
       }
-      industrySecondSectionDescription
+      hasDetailedPage
+      industryFirstSectionDescription
       industrySecondSectionImage {
         node {
           guid
         }
       }
+      industrySecondSectionDescription
+      
+      industryFirstSectionImage {
+        node {
+          guid
+        }
+      }
+      longDescription
+      
     }
 #     Products list
     products{
@@ -50,5 +60,5 @@ export const GetAnIndustry = `query industryData($id: ID!) {
         }
       }
     }
-    }
+  }
 }`

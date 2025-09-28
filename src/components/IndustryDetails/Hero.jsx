@@ -17,7 +17,7 @@ export default function Hero({ heroData, nameOfTheseIndustries }) {
     }
     return (
         <div className='grid grid-cols-1 lg:gap-8 lg:grid-cols-2 container mx-auto py-4 justify-between'>
-            <div className="flex lg:flex-col flex-col-reverse justify-between gap-6 lg:gap-12">
+            <div className="flex lg:flex-col flex-col-reverse gap-6">
                 <div className="flex flex-col gap-2">
                     <h1>{heroData.name}</h1>
                     <p>{heroData.description}</p>

@@ -124,10 +124,10 @@ const Header = () => {
                         <div className="flex items-center space-x-8">
                             {menuItems.map((item) => (
                                 <div key={item.name} className="relative group" onMouseEnter={() => handleMouseEnter(item.name)} onMouseLeave={handleMouseLeave}>
-                                    <a href={item.href} className="flex items-center text-gray-700 hover:text-accent font-medium text-sm">
+                                    <Link href={item.href} className="flex items-center text-gray-700 hover:text-accent font-medium text-sm">
                                         {item.name}
                                         {item.hasDropdown && <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""}`} />}
-                                    </a>
+                                    </Link>
 
                                     {item.dropdownItems.length > 0 && (
                                         activeDropdown === item.name && (

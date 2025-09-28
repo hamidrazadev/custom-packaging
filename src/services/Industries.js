@@ -20,13 +20,14 @@ export const GetAllIndustries = async () => {
 
 export const GetAnIndustryDetails = async (id) => {
     const industryDetails = await graphqlClient(GetAnIndustryQuery, { id });
+    // console.log("Industry Details", industryDetails);
     const refinedData = {
         name: industryDetails.industry.name,
         description: industryDetails.industry.description,
-        image: industryDetails.industryInformation?.iindustryFeaturedImage,
-        isToNextPage: industryDetails.industry.isToNextPage,
+        image: industryDetails.industry.industryInformation.iindustryFeaturedImage?.node.guid,
+        isToNextPage: industryDetails.industry.industryInformation.hasDetailedPage[0] === "Yes" ? true : false,
         products: industryDetails.industry.products.nodes,
-        learn_more: industryDetails.industry.learnMore,
+        learn_more: industryDetails.industry.industryInformation.longDescription,
         faqs: industryDetails.industry.faq
     };
 

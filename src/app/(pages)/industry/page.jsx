@@ -4,14 +4,16 @@ import TopBreadCrumb from '@/components/industries/TopBreadCrumb'
 import { GetAllIndustries } from '@/services/Industries'
 import React from 'react'
 
-export default async function page() {
+export const dynamic = "force-dynamic"
+
+export default async function Page() {
     const allIndustries = await GetAllIndustries();
 
     return (
-        <div className='min-h-[80vh] flex gap-2 flex-col py-4'>
+        <div className="min-h-[80vh] flex gap-2 flex-col py-4">
             <TopBreadCrumb />
             <AllIndustries allIndustries={allIndustries} />
             <FooterContactForm />
         </div>
-    )
+    );
 }
