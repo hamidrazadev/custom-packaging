@@ -2,7 +2,7 @@ import React from 'react'
 import ProductCard from './ProductCard'
 import FormDialog from '../FormDialog'
 
-export default function ProductsOfIndustry({ products, isToNextPage, packageStyleName }) {
+export default function ProductsOfPackagingStyle({ products, isToNextPage, packageStyleName }) {
     // console.log(products);
     return (
         <div className='bg-primary-foreground py-6'>

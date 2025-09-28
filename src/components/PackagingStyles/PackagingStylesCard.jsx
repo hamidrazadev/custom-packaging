@@ -1,0 +1,12 @@
+import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
+
+export default function PackagingStylesCard({ packagingStyle }) {
+    return (
+        <Link href={`/shapes-and-styles/${packagingStyle.slug}-${packagingStyle.id}`} className='bg-primary-foreground w-full h-full rounded-md shadow hover:shadow-sm hover:scale-[1.025] p-4 flex flex-col items-center justify-center transition-all'>
+            <Image alt={packagingStyle.name} src={`${packagingStyle?.icon || "/assets/images/AllIndustries/Candle.png"}`} width={300} height={300} />
+            <span className='font-semibold text-primary text-center'>{packagingStyle.name}</span>
+        </Link>
+    )
+}

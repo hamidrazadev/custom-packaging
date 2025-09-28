@@ -19,5 +19,11 @@ export function unslugify(slug) {
 }
 
 export function extractName(str) {
-    return str.split(" id:")[0].replace(/-\d+$/, "").trim();
+    return str
+        .split(" id:")[0]               // remove " id:..."
+        .replace(/-\d+$/, "")           // remove trailing "-number"
+        .split("-")                     // split by dashes
+        .slice(0, 2)                    // keep only first 2 words (e.g., "reverse tuck")
+        .join(" ")                      // join with space
+        .replace(/\b\w/g, c => c.toUpperCase()); // capitalize first letters
 }

@@ -1,6 +1,6 @@
 import FooterContactForm from '@/components/common/FooterContactForm'
-import AllIndustries from '@/components/industries/AllIndustries'
-import TopBreadCrumb from '@/components/industries/TopBreadCrumb'
+import AllIndustries from '@/components/industry/AllIndustries'
+import TopBreadCrumb from '@/components/industry/TopBreadCrumb'
 import { GetAllIndustries } from '@/services/Industries'
 import React from 'react'
 
