@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import { Menu, X, Phone, ChevronDown, Search, ChevronUp } from "lucide-react";
 import Link from "next/link";
 import FormDialog from "./FormDialog";
+import companyInfo from 'constants/comapnyInfo'
 
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -33,7 +34,7 @@ const Header = () => {
         },
         {
             name: 'Product Packaging Styles',
-            href: '#packaging-styles',
+            href: '/shapes-and-styles',
             hasDropdown: true,
             dropdownItems: [
                 { name: 'Mailer Boxes', img: "https://www.halfpricepackaging.com/_ipx/f_webp&fit_cover&s_220x220/images/home-featured-industries/mailer-boxes.jpg" },
@@ -189,7 +190,7 @@ const Header = () => {
                             </a>
                             <div className="flex items-center justify-center text-accent font-bold text-sm">
                                 <Phone className="h-4 w-4 mr-1" />
-                                (866) 225-2112
+                                {companyInfo.phone}
                             </div>
                         </div>
                     </div>

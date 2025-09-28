@@ -26,29 +26,32 @@ export default function SidebarForFilter({ title, activeFilter, setActiveFilter,
                 <button type="button" onClick={clearThisGroup} className="text-sm underline">Clear</button>
             </div>
             <hr className='border-accent border' />
-            {filterItems.map((item, index) => {
-                // always slug-id (if object), otherwise fallback to plain string
-                const value = item.slug && item.id ? `${item.slug}-${item.id}` : item;
-
-                return (
-                    <label
-                        htmlFor={`${key}-${index}`}
-                        key={index}
-                        className="flex items-center gap-3 p-1 bg-primary-foreground cursor-pointer"
-                    >
-                        <input
-                            className='accent-accent h-4 w-4'
-                            id={`${key}-${index}`}
-                            type="radio"
-                            name={key}
-                            onChange={handleOnChange}
-                            value={value}
-                            checked={selectedValue === value}
-                        />
-                        <span className='font-semibold select-none'>{item.name || item}</span>
-                    </label>
-                );
-            })}
+            <div className="flex flex-col gap-3">
+                {
+                    filterItems.map((item, index) => {
+                        // always slug-id (if object), otherwise fallback to plain string
+                        const value = item.slug && item.id ? `${item.slug}-${item.id}` : item;
+                        return (
+                            <label
+                                htmlFor={`${key}-${index}`}
+                                key={index}
+                                className="flex items-center gap-3 p-1 bg-white cursor-pointer"
+                            >
+                                <input
+                                    className='accent-accent h-4 w-4'
+                                    id={`${key}-${index}`}
+                                    type="radio"
+                                    name={key}
+                                    onChange={handleOnChange}
+                                    value={value}
+                                    checked={selectedValue === value}
+                                />
+                                <span className='font-[400] text-sm select-none'>{item.name || item}</span>
+                            </label>
+                        );
+                    })
+                }
+            </div>
         </div>
     );
 }

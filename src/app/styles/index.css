@@ -109,7 +109,7 @@ h2 {
 }
 
 h3 {
-  @apply lg:text-2xl md:text-xl text-lg font-semibold text-accent-foreground
+  @apply lg:text-xl md:text-lg text-base font-semibold text-accent-foreground
 }
 
 .AccordionTrigger[data-state="open"]>.AccordionChevron {

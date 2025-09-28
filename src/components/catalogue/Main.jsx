@@ -69,109 +69,108 @@ export default function Main({ allProducts, allIndustries, allPackagingStyles })
     }, [activeFilter, after, before]);
 
     return (
-        <div className='flex flex-col lg:flex-row gap-4 w-full py-4 container mx-auto'>
+        <div className='container mx-auto py-4'>
+            <h2 className="">Products</h2>
             {/* Sidebar (desktop) */}
-            <div className="hidden w-1/4 lg:flex flex-col gap-6">
-                <SidebarForFilter
-                    title="Industries"
-                    activeFilter={activeFilter}
-                    setActiveFilter={setActiveFilter}
-                    filterItems={allIndustries}
-                />
-                <SidebarForFilter
-                    title="Packaging Styles"
-                    activeFilter={activeFilter}
-                    setActiveFilter={setActiveFilter}
-                    filterItems={allPackagingStyles}
-                />
-            </div>
-
-            {/* Mobile filter */}
-            <div className="lg:hidden w-full flex justify-between">
-                <div className="flex w-full items-center justify-between">
-                    <h3>Filters</h3>
-                    <RiFilter2Line onClick={() => setIsFilterOpen(!isFilterOpen)} className='text-2xl' />
-                </div>
-                {isFilterOpen && (
-                    <ScreenForFilter
-                        setIsFilterOpen={setIsFilterOpen}
-                        setActiveFilter={setActiveFilter}
+            <div className='flex flex-col gap-16 lg:flex-row w-full py-5 '>
+                <div className="hidden w-1/4 lg:flex flex-col gap-6">
+                    <SidebarForFilter
+                        title="Industries"
                         activeFilter={activeFilter}
-                        industries={AllIndustries}
-                        packagingStyles={allPackagingStyles}
+                        setActiveFilter={setActiveFilter}
+                        filterItems={allIndustries}
                     />
-                )}
-            </div>
-
-            {/* Products grid */}
-            <div className="flex flex-col gap-4 w-full">
-                <h2 className="">Products</h2>
-                {loading ? (
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
-                        {[1, 2, 3, 4, 5, 6, 7, 8].map((index) => (
-                            <Skeleton className='w-full' key={index} height={350} />
-                        ))}
+                    <SidebarForFilter
+                        title="Packaging Styles"
+                        activeFilter={activeFilter}
+                        setActiveFilter={setActiveFilter}
+                        filterItems={allPackagingStyles}
+                    />
+                </div>
+                {/* Mobile filter */}
+                <div className="lg:hidden w-full flex justify-between">
+                    <div className="flex w-full items-center justify-between">
+                        <h3>Filters</h3>
+                        <RiFilter2Line onClick={() => setIsFilterOpen(!isFilterOpen)} className='text-2xl' />
                     </div>
-                ) : (
-                    <>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 w-full">
-                            {allProductsFiltered?.length > 0 ? (
-                                allProductsFiltered.map((product) => (
-                                    <Link
-                                        key={product.id}
-                                        href={`/${product.industries?.nodes[0].slug + "-" + product.industries?.nodes[0].id}/${product.slug + "-" + product.id}`}
-                                        className='hover:shadow-xl rounded-xl transition-all duration-500 bg-white w-full h-full flex flex-col gap-2 hover:scale-[1.05]'>
-                                        {product.featuredImage?.node?.guid ? (
-                                            <Image
-                                                src={product.featuredImage.node.guid}
-                                                width={500}
-                                                height={500}
-                                                className='rounded-3xl'
-                                                alt={product.title}
-                                            />
-                                        ) : (
-                                            <Skeleton height={200} />
-                                        )}
-                                        <div className="flex flex-col gap-2 p-4">
-                                            <span className='text-xs text-start'>
-                                                {product?.deliveryInfo?.moq} • Delivery: {product?.deliveryInfo?.deliveryTime}
-                                            </span>
-                                            <span className='font-semibold text-start'>{product.title}</span>
-                                        </div>
-                                    </Link>
-                                ))
-                            ) : (
-                                <p>No products found.</p>
-                            )}
+                    {isFilterOpen && (
+                        <ScreenForFilter
+                            setIsFilterOpen={setIsFilterOpen}
+                            setActiveFilter={setActiveFilter}
+                            activeFilter={activeFilter}
+                            industries={AllIndustries}
+                            packagingStyles={allPackagingStyles}
+                        />
+                    )}
+                </div>
+                {/* Products grid */}
+                <div className="flex flex-col gap-4 w-full">
+                    {loading ? (
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
+                            {[1, 2, 3, 4, 5, 6, 7, 8].map((index) => (
+                                <Skeleton className='w-full' key={index} height={350} />
+                            ))}
                         </div>
-
-                        {/* Pagination controls */}
-                        {pageInfo && (
-                            <div className="flex justify-center gap-4 mt-6">
-                                <button
-                                    disabled={!pageInfo.hasPreviousPage}
-                                    onClick={() => {
-                                        setBefore(pageInfo.startCursor);
-                                        setAfter(null);
-                                    }}
-                                    className="btn disabled:opacity-50"
-                                >
-                                    Previous
-                                </button>
-                                <button
-                                    disabled={!pageInfo.hasNextPage}
-                                    onClick={() => {
-                                        setAfter(pageInfo.endCursor);
-                                        setBefore(null);
-                                    }}
-                                    className="btn disabled:opacity-50"
-                                >
-                                    Next
-                                </button>
+                    ) : (
+                        <>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 w-full">
+                                {allProductsFiltered?.length > 0 ? (
+                                    allProductsFiltered.map((product) => (
+                                        <Link
+                                            key={product.id}
+                                            href={`/${product.industries?.nodes[0].slug + "-" + product.industries?.nodes[0].id}/${product.slug + "-" + product.id}`}
+                                            className='hover:shadow-xl rounded-xl transition-all duration-500 bg-white w-full h-full flex flex-col gap-2 hover:scale-[1.05] p-3'>
+                                            {product.featuredImage?.node?.guid ? (
+                                                <Image
+                                                    src={product.featuredImage.node.guid}
+                                                    width={500}
+                                                    height={500}
+                                                    className='rounded-3xl'
+                                                    alt={product.title}
+                                                />
+                                            ) : (
+                                                <Skeleton height={200} />
+                                            )}
+                                            <div className="flex flex-col gap-2">
+                                                <span className='text-xs text-start'>
+                                                    {product?.deliveryInfo?.moq} • Delivery: {product?.deliveryInfo?.deliveryTime}
+                                                </span>
+                                                <span className='font-semibold text-start'>{product.title}</span>
+                                            </div>
+                                        </Link>
+                                    ))
+                                ) : (
+                                    <p>No products found.</p>
+                                )}
                             </div>
-                        )}
-                    </>
-                )}
+                            {/* Pagination controls */}
+                            {pageInfo && (
+                                <div className="flex justify-center gap-4 mt-6">
+                                    <button
+                                        disabled={!pageInfo.hasPreviousPage}
+                                        onClick={() => {
+                                            setBefore(pageInfo.startCursor);
+                                            setAfter(null);
+                                        }}
+                                        className="btn disabled:opacity-50"
+                                    >
+                                        Previous
+                                    </button>
+                                    <button
+                                        disabled={!pageInfo.hasNextPage}
+                                        onClick={() => {
+                                            setAfter(pageInfo.endCursor);
+                                            setBefore(null);
+                                        }}
+                                        className="btn disabled:opacity-50"
+                                    >
+                                        Next
+                                    </button>
+                                </div>
+                            )}
+                        </>
+                    )}
+                </div>
             </div>
         </div>
     );
