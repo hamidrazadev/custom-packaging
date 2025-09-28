@@ -1,34 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { RxCross2 } from "react-icons/rx";
 
-export default function ScreenForFilter({ setFilters, industries, packagingStyles, setIsFilterOpen }) {
-    const [selectedIndustries, setSelectedIndustries] = useState([]);
-    const [selectedPackaging, setSelectedPackaging] = useState([]);
+export default function ScreenForFilter({ setFilters, industries, packagingStyles, setIsFilterOpen, filters }) {
 
     const handleIndustryChange = (e) => {
-        const { value } = e.target;
-        let updated = selectedIndustries.includes(value)
-            ? selectedIndustries.filter(item => item !== value)
-            : [...selectedIndustries, value];
-
-        setSelectedIndustries(updated);
-        setFilters(prev => ({ ...prev, industry: updated }));
+        const value = e.target.value;
+        setFilters({
+            industry: value,
+            packaging_style: "" // clear packaging if industry selected
+        });
     };
 
     const handlePackagingChange = (e) => {
-        const { value } = e.target;
-        let updated = selectedPackaging.includes(value)
-            ? selectedPackaging.filter(item => item !== value)
-            : [...selectedPackaging, value];
-
-        setSelectedPackaging(updated);
-        setFilters(prev => ({ ...prev, packaging_style: updated }));
+        const value = e.target.value;
+        setFilters({
+            industry: "", // clear industry if packaging selected
+            packaging_style: value
+        });
     };
 
     const resetFilters = () => {
-        setSelectedIndustries([]);
-        setSelectedPackaging([]);
-        setFilters({ industry: [], packaging_style: [] });
+        setFilters({ industry: "", packaging_style: "" });
     };
 
     return (
@@ -57,7 +49,7 @@ export default function ScreenForFilter({ setFilters, industries, packagingStyle
                     </button>
                 </div>
 
-                {/* Body with scroll */}
+                {/* Body */}
                 <div className="flex-1 overflow-y-auto p-4 space-y-6">
 
                     {/* Industries */}
@@ -73,10 +65,11 @@ export default function ScreenForFilter({ setFilters, industries, packagingStyle
                                 >
                                     <input
                                         id={`industry-${index}`}
-                                        type="checkbox"
-                                        onChange={handleIndustryChange}
+                                        type="radio"
+                                        name="industry"
                                         value={item}
-                                        checked={selectedIndustries.includes(item)}
+                                        checked={filters.industry === item}
+                                        onChange={handleIndustryChange}
                                         className="w-5 h-5 accent-accent"
                                     />
                                     <span className="text-gray-700 text-sm sm:text-base">{item}</span>
@@ -85,7 +78,7 @@ export default function ScreenForFilter({ setFilters, industries, packagingStyle
                         </div>
                     </div>
 
-                    {/* Packaging Style */}
+                    {/* Packaging Styles */}
                     <div>
                         <h4 className="font-medium text-gray-800 mb-2">Packaging Style</h4>
                         <hr className="border-accent mb-3" />
@@ -98,10 +91,11 @@ export default function ScreenForFilter({ setFilters, industries, packagingStyle
                                 >
                                     <input
                                         id={`packaging-${index}`}
-                                        type="checkbox"
-                                        onChange={handlePackagingChange}
+                                        type="radio"
+                                        name="packaging"
                                         value={item}
-                                        checked={selectedPackaging.includes(item)}
+                                        checked={filters.packaging_style === item}
+                                        onChange={handlePackagingChange}
                                         className="w-5 h-5 accent-accent"
                                     />
                                     <span className="text-gray-700 text-sm sm:text-base">{item}</span>

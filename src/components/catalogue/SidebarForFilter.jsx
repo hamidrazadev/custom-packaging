@@ -1,45 +1,54 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-export default function SidebarForFilter({ title, setFilters, filterItems }) {
-    const [options, setOptions] = useState([])
+export default function SidebarForFilter({ title, activeFilter, setActiveFilter, filterItems }) {
+    const key = title === 'Industries' ? 'industry' : 'packaging_style';
+    const selectedValue = activeFilter.type === key ? activeFilter.value : "";
 
     const handleOnChange = (e) => {
-        const { value } = e.target;
+        const value = e.target.value;
 
-        let updatedOptions = [];
-        if (options.includes(value)) {
-            updatedOptions = options.filter(item => item !== value);
-        } else {
-            updatedOptions = [...options, value];
+        setActiveFilter({
+            type: key,
+            value: value
+        });
+    };
+
+    const clearThisGroup = () => {
+        if (activeFilter.type === key) {
+            setActiveFilter({ type: null, value: "" });
         }
-        setOptions(updatedOptions);
-
-        // Map title to the correct filter key
-        const key = title === 'Industries' ? 'industry' : 'packaging_style';
-
-        setFilters(prev => ({
-            ...prev,
-            [key]: updatedOptions
-        }));
     };
 
     return (
         <div className="w-full flex flex-col gap-2">
-            <h3>{title}</h3>
+            <div className="flex items-center justify-between">
+                <h3>{title}</h3>
+                <button type="button" onClick={clearThisGroup} className="text-sm underline">Clear</button>
+            </div>
             <hr className='border-accent border' />
-            {filterItems.map((item, index) => (
-                <label htmlFor={`${title}-${index}`} key={index} className="flex items-center gap-3 p-1 bg-primary-foreground cursor-pointer">
-                    <input
-                        className='accent-accent h-4 w-4'
-                        id={`${title}-${index}`}
-                        type="checkbox"
-                        onChange={handleOnChange}
-                        value={item}
-                        checked={options.includes(item)}
-                    />
-                    <span className='font-semibold select-none'>{item}</span>
-                </label>
-            ))}
+            {filterItems.map((item, index) => {
+                // always slug-id (if object), otherwise fallback to plain string
+                const value = item.slug && item.id ? `${item.slug}-${item.id}` : item;
+
+                return (
+                    <label
+                        htmlFor={`${key}-${index}`}
+                        key={index}
+                        className="flex items-center gap-3 p-1 bg-primary-foreground cursor-pointer"
+                    >
+                        <input
+                            className='accent-accent h-4 w-4'
+                            id={`${key}-${index}`}
+                            type="radio"
+                            name={key}
+                            onChange={handleOnChange}
+                            value={value}
+                            checked={selectedValue === value}
+                        />
+                        <span className='font-semibold select-none'>{item.name || item}</span>
+                    </label>
+                );
+            })}
         </div>
     );
 }
