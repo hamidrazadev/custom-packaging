@@ -1,6 +1,5 @@
 import React from 'react'
 import ProductCard from './ProductCard'
-import FormDialog from '../FormDialog'
 
 export default function ProductsOfIndustry({ products, isToNextPage, packageStyleName }) {
     // console.log(products);

@@ -1,5 +1,6 @@
 import { GetAllProducts as GetAllProductsQuery } from "@/graphql/queries/GetAllProducts";
 import { GetAnIndustry } from "@/graphql/queries/GetAnIndustry";
+import { GetAProduct as GetAProductQuery } from "@/graphql/queries/GetAProduct";
 import { GetAPackagingStyle } from "@/graphql/queries/GetAPackagingStyle";
 import { graphqlClient } from "@/lib/graphqlClient";
 
@@ -21,4 +22,15 @@ export async function GetAllProductsOfPackagingStyle(packaging_style_id) {
     // console.log("allProducts", allProducts.packagingStyle.products.nodes);
 
     return allProducts.packagingStyle.products.nodes
+}
+
+export async function GetAProduct(id) {
+    // console.log("packaging_style", packaging_style_id);
+    const productDetails = await graphqlClient(GetAProductQuery, { id: parseInt(id) });
+    // console.log("allProducts", allProducts.packagingStyle.products.nodes);
+    {
+        // slugOfIndustryOrPackagingStyle: productDetails.products.nodes[0].industry ? productDetails.products.nodes[0].industry.slug : productDetails.products.nodes[0].packagingStyle.slug
+    }
+
+    return productDetails
 }
