@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export default function TopBreadCrumb() {
     return (
-        <div className='container mx-auto flex gap-1 items-center'>
+        <div className='container mx-auto flex gap-1 py-4 items-center'>
             <Link href={'/'} className="link-for-icon">
                 <TbHome />
             </Link>

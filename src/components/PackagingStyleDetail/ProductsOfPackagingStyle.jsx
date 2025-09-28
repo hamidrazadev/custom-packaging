@@ -20,7 +20,7 @@ export default function ProductsOfPackagingStyle({ products, isToNextPage, packa
                             }
                         </div>
                         :
-                        <p>No products found for this industry</p>
+                        <p>No products found for this packaging style</p>
                 }
             </div>
         </div>

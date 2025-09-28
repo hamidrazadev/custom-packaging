@@ -6,7 +6,7 @@ import { unslugify } from '@/utils/formatting';
 
 export default function TopBreadCrumb({ data }) {
     return (
-        <div className='container mx-auto flex gap-1 items-center'>
+        <div className='container mx-auto flex gap-1 py-4 items-center'>
             <Link href={'/'} className="link-for-icon">
                 <TbHome />
             </Link>
