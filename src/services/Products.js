@@ -28,9 +28,68 @@ export async function GetAProduct(id) {
     // console.log("packaging_style", packaging_style_id);
     const productDetails = await graphqlClient(GetAProductQuery, { id: parseInt(id) });
     // console.log("allProducts", allProducts.packagingStyle.products.nodes);
-    {
-        // slugOfIndustryOrPackagingStyle: productDetails.products.nodes[0].industry ? productDetails.products.nodes[0].industry.slug : productDetails.products.nodes[0].packagingStyle.slug
+    const productDetailsObj = productDetails.products.nodes[0]
+    // console.log(productDetailsObj);
+    const requiredData = {
+        productId: productDetailsObj.id,
+        isFromIndustry: productDetailsObj?.industries?.nodes?.length ? true : false,
+        title: productDetailsObj.title,
+        slug: productDetailsObj.slug,
+        overview: {
+            title: productDetailsObj.title,
+            description: productDetailsObj.productOverview.productOverview,
+            image: productDetailsObj.featuredImage.node.guid
+        },
+        related_products: productDetailsObj?.[productDetailsObj?.industries?.nodes?.length ? "industries" : "packagingStyles"]?.nodes?.filter((parent) => {
+            // return
+        }),
+        images: extractMaterialImages(productDetailsObj.productMaterial),
+        learn_more: productDetailsObj.productLearnMore?.learMore || null,
+        faqs: transformFaqs(productDetailsObj.productFaqs) || null,
     }
 
-    return productDetails
+    return requiredData
+}
+
+function extractMaterialImages(productMaterial) {
+    const images = [];
+
+    // Loop through keys inside productMaterial
+    Object.keys(productMaterial).forEach((key) => {
+        if (key.startsWith("materialImage") && productMaterial[key]?.node) {
+            images.push({
+                imageURL: productMaterial[key].node.guid,
+                imageAlt: productMaterial[key].node.altText || "",
+            });
+        }
+    });
+
+    // Sort by number (materialImage1, 2, 3...) to keep order
+    images.sort((a, b) => {
+        const numA = parseInt(a.imageURL.match(/(\d+)/)?.[0] || "0", 10);
+        const numB = parseInt(b.imageURL.match(/(\d+)/)?.[0] || "0", 10);
+        return numA - numB;
+    });
+
+    return images;
+}
+
+function transformFaqs(productFaqs) {
+    const result = [];
+
+    // Iterate through the keys of productFaqs
+    Object.keys(productFaqs).forEach((key) => {
+        if (key.startsWith("q")) {
+            const index = key.replace("q", ""); // extract "one", "two", etc.
+            const answerKey = "a" + index;
+            if (productFaqs[answerKey]) {
+                result.push({
+                    question: productFaqs[key],
+                    answer: productFaqs[answerKey],
+                });
+            }
+        }
+    });
+
+    return result;
 }

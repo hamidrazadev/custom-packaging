@@ -11,11 +11,11 @@ export default function TopBreadCrumb({ data }) {
                 <TbHome />
             </Link>
             <MdOutlineKeyboardArrowRight className='text-2xl' />
-            <Link href={`/industry`} className="link-md">
-                <span>Industries</span>
+            <Link href={data.isFromIndustry ? `/industry` : '/shapes-and-styles'} className="link-md">
+                <span>{data.isFromIndustry ? `Industries` : 'Packaging Styles'}</span>
             </Link>
             <MdOutlineKeyboardArrowRight className='text-2xl' />
-            <Link href={`/industry/${data.parent_name}`} className="link-md">
+            <Link href={`/${data.isFromIndustry ? 'industry' : 'shapes-and-styles'}/${data.parent_name}`} className="link-md">
                 <span>{unslugify(extractName(data.parent_name))}</span>
             </Link>
             <MdOutlineKeyboardArrowRight className='text-2xl' />

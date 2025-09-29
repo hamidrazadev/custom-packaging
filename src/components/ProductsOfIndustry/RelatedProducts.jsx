@@ -4,7 +4,7 @@ import React, { useRef } from 'react'
 import ProductCard from './ProductCard'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
-export default function RelatedProducts({ products, industry_name }) {
+export default function RelatedProducts({ products, parent_name }) {
     const scrollRef = useRef(null);
 
     const scroll = (direction) => {
@@ -30,28 +30,34 @@ export default function RelatedProducts({ products, industry_name }) {
                 </div>
 
                 {/* Scroll buttons */}
-                <button
-                    onClick={() => scroll('left')}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 hidden md:flex"
-                >
-                    <FaChevronLeft />
-                </button>
-                <button
-                    onClick={() => scroll('right')}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 hidden md:flex"
-                >
-                    <FaChevronRight />
-                </button>
+                {
+                    products?.length > 0 ?
+                        <>
+                            <button
+                                onClick={() => scroll('left')}
+                                className="absolute left-0 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 hidden md:flex"
+                            >
+                                <FaChevronLeft />
+                            </button>
+                            <button
+                                onClick={() => scroll('right')}
+                                className="absolute right-0 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 hidden md:flex"
+                            >
+                                <FaChevronRight />
+                            </button>
 
-                {/* Scrollable products */}
-                <div
-                    ref={scrollRef}
-                    className="flex overflow-x-scroll scroll-smooth snap-x snap-mandatory scrollbar-none py-4 px-2 gap-4"
-                >
-                    {products.map((product, index) => (
-                        <ProductCard industry_name={industry_name} key={index} product={product} />
-                    ))}
-                </div>
+                            {/* Scrollable products */}
+                            <div
+                                ref={scrollRef}
+                                className="flex overflow-x-scroll scroll-smooth snap-x snap-mandatory scrollbar-none py-4 px-2 gap-4"
+                            >
+                                {products.map((product, index) => (
+                                    <ProductCard parent_name={parent_name} key={index} product={product} />
+                                ))}
+                            </div>
+                        </> :
+                        <p>No Related Products.</p>
+                }
             </div>
         </div>
     )

@@ -37,7 +37,9 @@ export default async function Page({ params }) {
                 {
                     packageStyleDetails.faqs?.length ?
                         <FAQs faqs={packageStyleDetails.faqs} /> :
-                        <Image src={'/assets/images/Placeholders/FaqAlternative.png'} width={500} height={500} alt="Our Capabilities" />
+                        <div className="flex items-center justify-end">
+                            <Image src={'/assets/images/Placeholders/FaqAlternative.png'} width={500} height={500} alt="Our Capabilities" />
+                        </div>
                 }
             </div>
             <FooterContactForm />

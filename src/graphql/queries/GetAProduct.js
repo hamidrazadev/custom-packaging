@@ -148,7 +148,14 @@ export const GetAProduct = `query MyQuery ($id:Int){
         }
       }
       
-
+      productLearnMore{
+        learMore:learnMoreAbout
+        seactionHeading:otherSeactionHeading
+        seactionDetails:otherSeactionDetails
+        seactionHeading2:otherSeactionTwoHeading
+        seactionDetails2:otherSeactionTwoDetails
+      }
+    
     }
   }
 }

@@ -6,11 +6,11 @@ export default function LearnMore({ data }) {
         <div className='py-6'>
             <div className="container mx-auto flex items-center justify-center">
                 <div className="bg-secondary rounded-xl p-4 lg:p-10 w-full flex flex-col gap-4 shadow-sm hover:shadow-lg hover:-translate-y-1">
-                    <h2 className='text-center'>{data.title}</h2>
+                    <h2 className='text-center'>Learn More about this Product</h2>
                     {/* Scoped CSS applied only here */}
                     <div
                         className={styles.content}
-                        dangerouslySetInnerHTML={{ __html: data.content }}
+                        dangerouslySetInnerHTML={{ __html: data }}
                     />
                 </div>
             </div>

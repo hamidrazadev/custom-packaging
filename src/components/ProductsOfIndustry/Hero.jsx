@@ -12,7 +12,7 @@ export default function Hero({ heroData }) {
         category: "",
         description: ""
     })
-    
+
     const handleOnChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -33,44 +33,44 @@ export default function Hero({ heroData }) {
                     <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">{heroData.title}</h1>
                     <p className="text-gray-600 text-base md:text-lg leading-relaxed">{heroData.description}</p>
                 </div>
-                
+
                 <div className="flex gap-3 flex-col-reverse lg:flex-row">
                     {/* Thumbnail Gallery */}
                     <div className="flex lg:flex-col flex-row gap-2 lg:gap-3 justify-center lg:justify-start overflow-x-auto lg:overflow-visible py-2 lg:py-0">
                         {heroData.images.map((image, index) => (
                             <div key={index} className="flex-shrink-0">
-                                <Image 
-                                    alt={`${heroData.title} thumbnail ${index + 1}`} 
-                                    src={image} 
-                                    width={80} 
-                                    height={80} 
-                                    onClick={() => setImageIndx(index)} 
+                                <Image
+                                    alt={`${image.altText}`}
+                                    src={image.imageURL}
+                                    width={80}
+                                    height={80}
+                                    onClick={() => setImageIndx(index)}
                                     className={`
                                         w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 object-cover
                                         cursor-pointer rounded-lg transition-all duration-300 ease-in-out
                                         hover:scale-105 hover:shadow-lg
-                                        ${index === imageIndx 
-                                            ? "ring-4 ring-gray-500 shadow-lg scale-105" 
+                                        ${index === imageIndx
+                                            ? "ring-4 ring-gray-500 shadow-lg scale-105"
                                             : "ring-2 ring-gray-200 hover:ring-gray-300 opacity-70 hover:opacity-100"
                                         }
-                                    `} 
+                                    `}
                                 />
                             </div>
                         ))}
                     </div>
-                    
+
                     {/* Main Image Display */}
                     <div className="relative group w-full">
                         <div className="relative overflow-hidden rounded-lg border-2 border-dashed border-gray-500">
-                            <Image 
-                                className='w-full h-64 sm:h-80 md:h-96 lg:h-[420px] object-cover transition-all duration-500 ease-in-out transform group-hover:scale-105' 
-                                alt={`${heroData.title} main image`} 
-                                src={heroData.images[imageIndx]} 
-                                width={500} 
+                            <Image
+                                className='w-full h-64 sm:h-80 md:h-96 lg:h-[420px] object-cover transition-all duration-500 ease-in-out transform group-hover:scale-105'
+                                alt={`${heroData.images[imageIndx].altText}`}
+                                src={heroData.images[imageIndx].imageURL}
+                                width={500}
                                 height={500}
                                 priority={imageIndx === 0}
                             />
-                            
+
                             {/* Navigation Arrows - Only show if more than one image */}
                             {heroData.images.length > 1 && (
                                 <>
@@ -94,7 +94,7 @@ export default function Hero({ heroData }) {
                                     </button>
                                 </>
                             )}
-                            
+
                             {/* Image Counter */}
                             {heroData.images.length > 1 && (
                                 <div className="absolute bottom-3 right-3 bg-black/60 text-white text-xs px-2 py-1 rounded-full backdrop-blur-sm">
@@ -102,7 +102,7 @@ export default function Hero({ heroData }) {
                                 </div>
                             )}
                         </div>
-                        
+
                         {/* Dot Indicators - Mobile friendly */}
                         {heroData.images.length > 1 && (
                             <div className="flex justify-center gap-1.5 mt-3 lg:hidden">
@@ -110,11 +110,10 @@ export default function Hero({ heroData }) {
                                     <button
                                         key={index}
                                         onClick={() => setImageIndx(index)}
-                                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                                            index === imageIndx 
-                                                ? "bg-accent scale-125" 
+                                        className={`w-2 h-2 rounded-full transition-all duration-300 ${index === imageIndx
+                                                ? "bg-accent scale-125"
                                                 : "bg-gray-300 hover:bg-gray-400"
-                                        }`}
+                                            }`}
                                         aria-label={`Go to image ${index + 1}`}
                                     />
                                 ))}
@@ -123,60 +122,60 @@ export default function Hero({ heroData }) {
                     </div>
                 </div>
             </div>
-            
+
             {/* Form Section */}
             <div className="lg:px-8 py-4 lg:py-2 flex flex-col gap-3 lg:gap-4">
                 <h2 className="text-xl md:text-2xl lg:text-3xl font-bold">Get an Instant Quote</h2>
                 <p className="text-gray-600">Fill out the form below and we will get in touch with you to discuss your needs.</p>
-                
+
                 <div className="flex flex-col lg:flex-row gap-3 w-full">
-                    <input 
-                        type="text" 
-                        required 
-                        value={formData.name} 
-                        onChange={handleOnChange} 
-                        name='name' 
-                        className='w-full p-3 focus:ring-2 focus:ring-accent border border-primary outline-none rounded-md transition-all duration-200' 
-                        placeholder='Name*' 
+                    <input
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={handleOnChange}
+                        name='name'
+                        className='w-full p-3 focus:ring-2 focus:ring-accent border border-primary outline-none rounded-md transition-all duration-200'
+                        placeholder='Name*'
                     />
-                    <input 
-                        type="email" 
-                        required 
-                        value={formData.email} 
-                        onChange={handleOnChange} 
-                        name='email' 
-                        className='w-full p-3 focus:ring-2 focus:ring-accent border border-primary outline-none rounded-md transition-all duration-200' 
-                        placeholder='Email*' 
+                    <input
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={handleOnChange}
+                        name='email'
+                        className='w-full p-3 focus:ring-2 focus:ring-accent border border-primary outline-none rounded-md transition-all duration-200'
+                        placeholder='Email*'
                     />
                 </div>
-                
+
                 <div className="flex flex-col lg:flex-row gap-3 w-full">
-                    <input 
-                        type="tel" 
-                        required 
-                        value={formData.phone} 
-                        onChange={handleOnChange} 
-                        name='phone' 
-                        className='w-full p-3 focus:ring-2 focus:ring-accent border border-primary outline-none rounded-md transition-all duration-200' 
-                        placeholder='Phone*' 
+                    <input
+                        type="tel"
+                        required
+                        value={formData.phone}
+                        onChange={handleOnChange}
+                        name='phone'
+                        className='w-full p-3 focus:ring-2 focus:ring-accent border border-primary outline-none rounded-md transition-all duration-200'
+                        placeholder='Phone*'
                     />
-                    <input 
-                        type="number" 
-                        min={200} 
-                        required 
-                        value={formData.quantity} 
-                        onChange={handleOnChange} 
-                        name='quantity' 
-                        className='w-full p-3 focus:ring-2 focus:ring-accent border border-primary outline-none rounded-md transition-all duration-200' 
-                        placeholder='Quantity (minimum 200)*' 
+                    <input
+                        type="number"
+                        min={200}
+                        required
+                        value={formData.quantity}
+                        onChange={handleOnChange}
+                        name='quantity'
+                        className='w-full p-3 focus:ring-2 focus:ring-accent border border-primary outline-none rounded-md transition-all duration-200'
+                        placeholder='Quantity (minimum 200)*'
                     />
                 </div>
-                
-                <select 
-                    name="category" 
-                    required 
-                    value={formData.category} 
-                    onChange={handleOnChange} 
+
+                <select
+                    name="category"
+                    required
+                    value={formData.category}
+                    onChange={handleOnChange}
                     className='w-full p-3 focus:ring-2 focus:ring-accent border border-primary outline-none rounded-md transition-all duration-200'
                 >
                     <option value="">Select Category*</option>
@@ -184,16 +183,16 @@ export default function Hero({ heroData }) {
                         <option key={index} value={option}>{option}</option>
                     ))}
                 </select>
-                
-                <textarea 
-                    rows={4} 
-                    name="description" 
-                    value={formData.description} 
-                    onChange={handleOnChange} 
-                    className='w-full p-3 focus:ring-2 focus:ring-accent border border-primary outline-none rounded-md resize-none transition-all duration-200' 
-                    placeholder="Provide detailed packaging specifications including dimensions, materials, weight restrictions, and design references and we'll get back to you with an instant quote." 
+
+                <textarea
+                    rows={4}
+                    name="description"
+                    value={formData.description}
+                    onChange={handleOnChange}
+                    className='w-full p-3 focus:ring-2 focus:ring-accent border border-primary outline-none rounded-md resize-none transition-all duration-200'
+                    placeholder="Provide detailed packaging specifications including dimensions, materials, weight restrictions, and design references and we'll get back to you with an instant quote."
                 />
-                
+
                 <button className="btn-lg w-full lg:w-1/3 mt-2">Get a Quote</button>
             </div>
         </div>
