@@ -14,25 +14,25 @@ export default function ProductCard({ product, isToNextPage }) {
     // console.log(product);
     return (
         isToNextPage ?
-            <Link href={productURL} className='hover:shadow-xl rounded-xl transition-all duration-500 bg-white w-full h-full flex flex-col gap-2 hover:scale-[1.05]'>
+            <Link href={productURL} className='hover:shadow-xl rounded-xl transition-all duration-500 w-full h-full flex flex-col gap-2 p-2 hover:scale-[1.05]'>
                 {
                     product.featuredImage.node.guid ?
                         <Image src={`${product.featuredImage.node.guid}`} width={300} height={300} className='rounded-3xl' /> :
                         <Skeleton height={200} />
                 }
-                <div className="flex flex-col gap-2 p-4">
+                <div className="flex flex-col gap-2 p-2">
                     <span className='text-sm text-start'>{product.deliveryInfo.moq}· Delivery: {product.deliveryInfo.deliveryTime}</span>
                     <span className='font-semibold text-start'>{product.title}</span>
                 </div>
             </Link> :
             <>
-                <button onClick={onClickBtn} className='hover:shadow-xl rounded-xl transition-all duration-500 bg-white w-full h-full flex flex-col gap-2 hover:scale-[1.05]'>
+                <button onClick={onClickBtn} className='hover:shadow-xl rounded-xl transition-all duration-500 w-full h-full flex flex-col gap-2 p-2 hover:scale-[1.05]'>
                     {
                         product.featuredImage.node.guid ?
                             <Image src={`${product.featuredImage.node.guid}`} width={300} height={300} className='rounded-3xl' /> :
                             <Skeleton height={200} />
                     }
-                    <div className="flex flex-col gap-2 p-4">
+                    <div className="flex flex-col gap-2 p-2">
                         <span className='text-sm text-start'>{product.deliveryInfo.moq}· Delivery: {product.deliveryInfo.deliveryTime}</span>
                         <span className='font-semibold text-start'>{product.title}</span>
                     </div>

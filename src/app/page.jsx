@@ -7,7 +7,7 @@ import SustainabilitySection from '../components/SustainabilitySection';
 import ClientSuccessStories from '../components/ClientSuccessStories';
 import FAQ from '../components/FAQ';
 import OurCapabilities from '../components/OurCapabilities';
-import Contact from '../components/ContactForm';
+import ContactForm from '../components/ContactForm';
 // import Carousel from '../components/Carousel';
 import About from '../components/About';
 import CustomPackagingSection from '../components/CustomPackaging';
@@ -152,12 +152,12 @@ const Home = () => {
             <CTABanner
                 title="Still Have Questions?"
                 subtitle="Our packaging experts are ready to help you find the perfect solution"
-                buttonText="Contact Expert"
+                buttonText="ContactForm Expert"
                 href="#contact"
                 variant="secondary"
             />
             <OurCapabilities />
-            <Contact />
+            <ContactForm />
             
         </div>
     );

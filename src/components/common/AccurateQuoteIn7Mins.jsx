@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useCallback } from "react";
 import { ChevronDown, Upload, X } from "lucide-react";
+import submitForm from "@/lib/submitFormClient";
 
 // 🔹 Reusable Input
 const InputField = ({ name, placeholder, type = "text", formData, errors, handleInputChange }) => (
@@ -114,7 +115,7 @@ const AccurateQuoteIn7Mins = () => {
     };
 
     // 🔹 Submit handler
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!validateForm()) return;
@@ -134,11 +135,25 @@ const AccurateQuoteIn7Mins = () => {
             console.log(`${key}:`, val);
         }
 
-        // Example API request
-        // fetch("/api/quote", { method: "POST", body: formPayload })
-        //   .then(res => res.json())
-        //   .then(data => console.log("Response:", data))
-        //   .catch(err => console.error("Error:", err));
+        await submitForm(formData)
+        setFormData({
+            fullName: "",
+            phone: "",
+            email: "",
+            boxType: "",
+            material: "",
+            length: "",
+            width: "",
+            height: "",
+            dimensionUnit: "",
+            quantity: "",
+            printingSides: "",
+            cardThickness: "",
+            coatingLamination: "",
+            extraFinishing: "",
+            specifications: "",
+            files: [],
+        })
     };
 
 

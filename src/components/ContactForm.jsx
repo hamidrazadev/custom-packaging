@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Phone, Mail, MapPin, MessageSquare } from 'lucide-react';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "./ui/select"
 import comapnyInfo from 'constants/comapnyInfo'
+import submitForm from '@/lib/submitFormClient';
 
 const ContactForm = () => {
     const [formData, setFormData] = useState({
@@ -17,10 +18,17 @@ const ContactForm = () => {
         message: ''
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Form submitted:', formData);
-        // Handle form submission logic here
+        await submitForm(formData)
+        setFormData({
+            name: '',
+            email: '',
+            company: '',
+            phone: '',
+            message: ''
+        })
     };
 
     const handleChange = (e) => {
@@ -46,7 +54,7 @@ const ContactForm = () => {
                 <div className="grid lg:grid-cols-3 gap-8">
                     {/* Contact Information */}
                     <div className="space-y-6">
-                        <Card>
+                        <Card className='border-accent'>
                             <CardContent className="p-6">
                                 <div className="flex items-center mb-4">
                                     <Phone className="text-primary mr-3" size={24} />
@@ -61,7 +69,7 @@ const ContactForm = () => {
                             </CardContent>
                         </Card>
 
-                        <Card>
+                        <Card className='border-accent'>
                             <CardContent className="p-6">
                                 <div className="flex items-center mb-4">
                                     <Mail className="text-primary mr-3" size={24} />
@@ -76,7 +84,7 @@ const ContactForm = () => {
                             </CardContent>
                         </Card>
 
-                        <Card>
+                        <Card className='border-accent'>
                             <CardContent className="p-6">
                                 <div className="flex items-center mb-4">
                                     <MessageSquare className="text-primary mr-3" size={24} />
@@ -91,7 +99,7 @@ const ContactForm = () => {
                             </CardContent>
                         </Card>
 
-                        <Card>
+                        <Card className='border-accent'>
                             <CardContent className="p-6">
                                 <div className="flex items-center mb-4">
                                     <MapPin className="text-primary mr-3" size={24} />
@@ -106,7 +114,7 @@ const ContactForm = () => {
 
                     {/* Contact Form */}
                     <div className="lg:col-span-2">
-                        <Card className="shadow-xl">
+                        <Card className="shadow-xl border-accent">
                             <CardHeader>
                                 <CardTitle className="text-2xl text-accent">Want to Grow Your Business?</CardTitle>
                                 <p className="text-gray-600">
@@ -237,13 +245,12 @@ const ContactForm = () => {
                                     </div>
 
 
-                                    <Button
+                                    <button
                                         type="submit"
-                                        size="lg"
-                                        className="w-full bg-primary hover:bg-green-600 text-white"
+                                        className="btn-lg w-full"
                                     >
                                         Get My Custom Quote
-                                    </Button>
+                                    </button>
 
                                     <p className="text-xs text-gray-500 text-center">
                                         By submitting this form, you agree to receive communications from Custom Packaging.

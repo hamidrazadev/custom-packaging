@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import Image from 'next/image'
+import submitForm from '@/lib/submitFormClient';
 
 export default function FooterContactForm() {
     const [formData, setFormData] = useState({
@@ -22,10 +23,20 @@ export default function FooterContactForm() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Form submitted:', formData);
-        // Handle form submission logic here
+        await submitForm(formData)
+        setFormData({
+            fullName: '',
+            email: '',
+            phone: '',
+            companyName: '',
+            website: '',
+            physicalAddress: '',
+            quantity: '',
+            industry: ''
+        })
     };
 
     return (
