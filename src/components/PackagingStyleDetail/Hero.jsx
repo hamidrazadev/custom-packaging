@@ -1,7 +1,7 @@
 "use client"
 import submitForm from '@/lib/submitFormClient'
 import Image from 'next/image'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -19,9 +19,10 @@ export default function Hero({ heroData, nameOfTheseStyle }) {
         setFormData({ ...formData, [name]: value });
     }
 
+    const [errorInFormSubmission, setErrorInFormSubmission] = useState(null);
+    const router = useRouter();
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        // console.log("Form submitted:", formData);
         const promise = submitForm(formData);
         toast.promise(promise, {
             loading: "Submitting your form...",
@@ -30,10 +31,13 @@ export default function Hero({ heroData, nameOfTheseStyle }) {
                     ? "Form submitted, but marked as spam ❌"
                     : "Form submitted successfully ✅";
             },
-            error: (err) => `Submission failed: ${err.message}`,
-        });
-        redirect('/catalogue')
-    }
+            error: () => `Submission failed!`,
+        }).then((data) => {
+            if (!data?.is_spam) {
+                router.push('/catalogue')
+            }
+        }).catch((error) => setErrorInFormSubmission(error.message || "Something went wrong"));
+    };
     return (
         <div className='grid grid-cols-1 lg:gap-8 lg:grid-cols-2 container mx-auto py-4 justify-between'>
             <div className="flex lg:flex-col flex-col-reverse gap-6">
@@ -60,6 +64,7 @@ export default function Hero({ heroData, nameOfTheseStyle }) {
                     </select>
                     <textarea required rows={4} name="description" value={formData.description} onChange={handleOnChange} className='w-full p-2 focus:ring-1 focus:ring-accent border border-slate-300 outline-none rounded-md' placeholder="Provide detailed packaging specifications including dimensions, materials, weight restrictions, and design references and we' ll get back to you with an instant quote." />
                     <button type="submit" className="btn-lg w-full lg:w-1/3 mt-4">Get a Quote</button>
+                    {errorInFormSubmission && <p className="text-red-500 text-sm mt-1">{errorInFormSubmission}</p>}
                 </form>
             </div>
             <div className="lg:px-8 py-4 lg:py-2 flex flex-col gap-2 lg:gap-4">

@@ -19,21 +19,13 @@ export default async function Page({ params }) {
     const allIndustries = await GetAllIndustries();
     const nameOfTheseIndustries = allIndustries.map((industry) => industry.name);
 
-    // const filePath = path.join(
-    //     process.cwd(),
-    //     "public/data/industries",
-    //     `${industry_name}.json`
-    // );
-    // const fileData = fs.readFileSync(filePath, "utf-8");
-    // const data = JSON.parse(fileData);
-
     const heroData = {
         name: industryDetails.name,
         description: industryDetails.description,
         image: industryDetails.image || 'https://www.halfpricepackaging.com/_ipx/s_600x331/https://www.halfpricepackaging.com/storage/cat_uploads/automotive-hardware-packaging.webp',
     }
 
-    // console.log("industryDetails.learn_more", industryDetails.learn_more);
+    // console.log("nameOfTheseIndustries", nameOfTheseIndustries);
 
     return (
         <div className="flex flex-col pt-4">

@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select";
 import submitForm from "@/lib/submitFormClient";
 import toast from "react-hot-toast";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function ContactFormContent() {
     const [formData, setFormData] = useState({
@@ -28,9 +28,11 @@ export default function ContactFormContent() {
         attachments: null,
     });
 
-    const handleSubmit = async (e) => {
+    const [errorInFormSubmission, setErrorInFormSubmission] = useState(null);
+
+    const router = useRouter();
+    const handleOnSubmit = (e) => {
         e.preventDefault();
-        // console.log("Form submitted:", formData);
         const promise = submitForm(formData);
         toast.promise(promise, {
             loading: "Submitting your form...",
@@ -39,19 +41,12 @@ export default function ContactFormContent() {
                     ? "Form submitted, but marked as spam ❌"
                     : "Form submitted successfully ✅";
             },
-            error: (err) => `Submission failed: ${err.message}`,
-        });
-        redirect('/catalogue')
-        setFormData({
-            name: "",
-            email: "",
-            company: "",
-            phone: "",
-            quantity: "",
-            packagingType: "",
-            message: "",
-            attachments: null,
-        });
+            error: () => `Submission failed!`,
+        }).then((data) => {
+            if (!data?.is_spam) {
+                router.push('/catalogue')
+            }
+        }).catch((error) => setErrorInFormSubmission(error.message || "Something went wrong"));
     };
 
     const handleChange = (e) => {
@@ -67,7 +62,7 @@ export default function ContactFormContent() {
                     Fill out the form below and we'll get back to you within 24 hours with a detailed quote.
                 </p>
             </div>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleOnSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                     <div>
                         {/* <label className="block text-sm font-medium text-accent mb-2">Full Name *</label> */}
@@ -173,6 +168,7 @@ export default function ContactFormContent() {
                     By submitting this form, you agree to receive communications from Custom Packaging.
                     We respect your privacy and will never share your information.
                 </p>
+                {errorInFormSubmission && <p className="text-red-500 text-sm mt-1">{errorInFormSubmission}</p>}
             </form>
         </div>
     );

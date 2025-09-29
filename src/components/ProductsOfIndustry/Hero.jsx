@@ -1,7 +1,7 @@
 "use client"
 import submitForm from '@/lib/submitFormClient'
 import Image from 'next/image'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -20,9 +20,10 @@ export default function Hero({ heroData }) {
         setFormData({ ...formData, [name]: value });
     }
 
+    const [errorInFormSubmission, setErrorInFormSubmission] = useState(null);
+    const router = useRouter();
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        // console.log("Form submitted:", formData);
         const promise = submitForm(formData);
         toast.promise(promise, {
             loading: "Submitting your form...",
@@ -31,10 +32,13 @@ export default function Hero({ heroData }) {
                     ? "Form submitted, but marked as spam ❌"
                     : "Form submitted successfully ✅";
             },
-            error: (err) => `Submission failed: ${err.message}`,
-        });
-        redirect('/catalogue')
-    }
+            error: () => `Submission failed!`,
+        }).then((data) => {
+            if (!data?.is_spam) {
+                router.push('/catalogue')
+            }
+        }).catch((error) => setErrorInFormSubmission(error.message || "Something went wrong"));
+    };
 
     const nextImage = () => {
         setImageIndx((prev) => (prev + 1) % heroData.images.length)
@@ -213,6 +217,7 @@ export default function Hero({ heroData }) {
                 />
 
                 <button type="submit" className="btn-lg w-full lg:w-1/3 mt-2">Get a Quote</button>
+                {errorInFormSubmission && <p className="text-red-500 text-sm mt-1">{errorInFormSubmission}</p>}
             </form>
         </div>
     )

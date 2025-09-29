@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image'
 import submitForm from '@/lib/submitFormClient';
 import toast from 'react-hot-toast';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { GetAllIndustries } from '@/services/Industries';
 
 export default function FooterContactForm() {
@@ -39,10 +39,11 @@ export default function FooterContactForm() {
         // toast.success("Here is a toast.");
     };
 
-    const handleSubmit = async (e) => {
+    const [errorInFormSubmission, setErrorInFormSubmission] = useState(null);
+    const router = useRouter();
+    const handleOnSubmit = (e) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
-        const promise = submitForm(formData)
+        const promise = submitForm(formData);
         toast.promise(promise, {
             loading: "Submitting your form...",
             success: (data) => {
@@ -50,19 +51,12 @@ export default function FooterContactForm() {
                     ? "Form submitted, but marked as spam ❌"
                     : "Form submitted successfully ✅";
             },
-            error: (err) => `Submission failed: ${err.message}`,
-        });
-        redirect('/catalogue')
-        // setFormData({
-        //     fullName: '',
-        //     email: '',
-        //     phone: '',
-        //     companyName: '',
-        //     website: '',
-        //     physicalAddress: '',
-        //     quantity: '',
-        //     industry: ''
-        // })
+            error: () => `Submission failed!`,
+        }).then((data) => {
+            if (!data?.is_spam) {
+                router.push('/catalogue')
+            }
+        }).catch((error) => setErrorInFormSubmission(error.message || "Something went wrong"));
     };
 
     return (
@@ -81,7 +75,7 @@ export default function FooterContactForm() {
                             of receiving them, we'll credit the cost of your samples-making them absolutely free!
                         </p>
 
-                        <form onSubmit={handleSubmit} className="space-y-2">
+                        <form onSubmit={handleOnSubmit} className="space-y-2">
                             <div className="grid md:grid-cols-2 gap-2">
                                 <div>
                                     <input
@@ -190,6 +184,7 @@ export default function FooterContactForm() {
                             >
                                 Get Started
                             </button>
+                            {errorInFormSubmission && <p className="text-red-500 text-sm mt-1">{errorInFormSubmission}</p>}
                         </form>
                     </div>
 

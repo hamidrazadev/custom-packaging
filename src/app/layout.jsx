@@ -31,6 +31,15 @@ export default function RootLayout({ children }) {
         <Toaster
           position="bottom-center"
           reverseOrder={false}
+          gutter={8}
+          containerClassName=""
+          containerStyle={{}}
+          toastOptions={{
+            // Define default options
+            className: '',
+            duration: 5000,
+          }}
+          
         />
         <Header />
         {children}
