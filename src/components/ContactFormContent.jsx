@@ -13,6 +13,8 @@ import {
     SelectItem,
 } from "@/components/ui/select";
 import submitForm from "@/lib/submitFormClient";
+import toast from "react-hot-toast";
+import { redirect } from "next/navigation";
 
 export default function ContactFormContent() {
     const [formData, setFormData] = useState({
@@ -28,8 +30,18 @@ export default function ContactFormContent() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form submitted:", formData);
-        await submitForm(formData);
+        // console.log("Form submitted:", formData);
+        const promise = submitForm(formData);
+        toast.promise(promise, {
+            loading: "Submitting your form...",
+            success: (data) => {
+                return data.is_spam
+                    ? "Form submitted, but marked as spam ❌"
+                    : "Form submitted successfully ✅";
+            },
+            error: (err) => `Submission failed: ${err.message}`,
+        });
+        redirect('/catalogue')
         setFormData({
             name: "",
             email: "",

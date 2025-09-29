@@ -5,21 +5,12 @@ import "./styles/custom.css";
 import Footer from '../components/Footer';
 import 'react-loading-skeleton/dist/skeleton.css'
 import Header from '../components/Header';
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import Toaster from 'react-hot-toast'
 
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
 });
 
 export const metadata = {
@@ -37,9 +28,12 @@ export default function RootLayout({ children }) {
       <body
         className={`${poppins.className} antialiased`}
       >
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+        />
         <Header />
         {children}
-        {/* <Toaster /> */}
         <Footer />
       </body>
     </html>

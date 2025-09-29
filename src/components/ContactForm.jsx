@@ -8,6 +8,8 @@ import { Phone, Mail, MapPin, MessageSquare } from 'lucide-react';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "./ui/select"
 import comapnyInfo from 'constants/comapnyInfo'
 import submitForm from '@/lib/submitFormClient';
+import toast from 'react-hot-toast';
+import { redirect } from 'next/navigation';
 
 const ContactForm = () => {
     const [formData, setFormData] = useState({
@@ -21,7 +23,17 @@ const ContactForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Form submitted:', formData);
-        await submitForm(formData)
+        const promise = submitForm(formData)
+        toast.promise(promise, {
+            loading: "Submitting your form...",
+            success: (data) => {
+                return data.is_spam
+                    ? "Form submitted, but marked as spam ❌"
+                    : "Form submitted successfully ✅";
+            },
+            error: (err) => `Submission failed: ${err.message}`,
+        });
+        redirect('/catalogue')
         setFormData({
             name: '',
             email: '',
