@@ -37,7 +37,7 @@ export default function Hero({ heroData }) {
                 <div className="flex gap-3 flex-col-reverse lg:flex-row">
                     {/* Thumbnail Gallery */}
                     <div className="flex lg:flex-col flex-row gap-2 lg:gap-3 justify-center lg:justify-start overflow-x-auto lg:overflow-visible py-2 lg:py-0">
-                        {heroData.images.map((image, index) => (
+                        {heroData.images.slice(0, 4).map((image, index) => (
                             <div key={index} className="flex-shrink-0">
                                 <Image
                                     alt={`${image.altText}`}

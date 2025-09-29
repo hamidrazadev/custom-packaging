@@ -6,7 +6,6 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 export default function RelatedProducts({ products, parent_name }) {
     const scrollRef = useRef(null);
-
     const scroll = (direction) => {
         if (scrollRef.current) {
             const { scrollLeft, clientWidth } = scrollRef.current;

@@ -40,9 +40,7 @@ export async function GetAProduct(id) {
             description: productDetailsObj.productOverview.productOverview,
             image: productDetailsObj.featuredImage.node.guid
         },
-        related_products: productDetailsObj?.[productDetailsObj?.industries?.nodes?.length ? "industries" : "packagingStyles"]?.nodes?.filter((parent) => {
-            // return
-        }),
+        related_products: getRelatedProducts(productDetailsObj?.[productDetailsObj?.industries?.nodes?.length ? "industries" : "packagingStyles"]?.nodes),
         images: extractMaterialImages(productDetailsObj.productMaterial),
         learn_more: productDetailsObj.productLearnMore?.learMore || null,
         faqs: transformFaqs(productDetailsObj.productFaqs) || null,
@@ -92,4 +90,30 @@ function transformFaqs(productFaqs) {
     });
 
     return result;
+}
+
+function getRelatedProducts(data, skipSlug) {
+    const relatedProducts = [];
+
+    data.forEach(industry => {
+        industry.products.nodes.forEach(product => {
+            if (product.slug !== skipSlug) {
+                relatedProducts.push({
+                    id: product.id,
+                    slug: product.slug,
+                    title: product.title,
+                    image: product.featuredImage?.node?.guid || null,
+                    deliveryTime: product.deliveryInfo?.deliveryTime || null,
+                    moq: product.deliveryInfo?.moq || null,
+                    industry: {
+                        id: industry.id,
+                        name: industry.name,
+                        slug: industry.slug
+                    }
+                });
+            }
+        });
+    });
+
+    return relatedProducts;
 }

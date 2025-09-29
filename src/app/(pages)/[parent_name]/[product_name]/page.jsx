@@ -30,7 +30,7 @@ export default async function page({ params }) {
         sub_options,
     }
 
-    // console.log("productDetails.learn_more", productDetails.learn_more);
+    // console.log("productDetails.related_products", productDetails.related_products);
 
     return (
         <div className="flex flex-col pt-4">
