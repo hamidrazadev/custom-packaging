@@ -52,12 +52,12 @@ const Header = () => {
             hasDropdown: true,
             dropdownItems: packagingStyles.slice(0, 4),
         },
-        {
-            name: 'Other Printing Products',
-            href: '#',
-            hasDropdown: false,
-            dropdownItems: []
-        },
+        // {
+        //     name: 'Other Printing Products',
+        //     href: '#',
+        //     hasDropdown: false,
+        //     dropdownItems: []
+        // },
         {
             name: 'Custom Quotes',
             href: '#',
@@ -66,7 +66,7 @@ const Header = () => {
         },
         {
             name: 'About Us',
-            href: '#',
+            href: '/about',
             hasDropdown: false,
             dropdownItems: []
         },
@@ -126,7 +126,7 @@ const Header = () => {
                         <div className="flex items-center space-x-8">
                             {menuItems.map((item) => (
                                 <div key={item.name} className="relative group" onMouseEnter={() => handleMouseEnter(item.name)} onMouseLeave={handleMouseLeave}>
-                                    <Link href={item.href} className="flex items-center text-gray-700 hover:text-accent font-medium text-sm">
+                                    <Link onClick={() => item.name === 'Custom Quotes' && setOpen(true)} href={item.href} className="flex items-center text-gray-700 hover:text-accent font-medium text-sm">
                                         {item.name}
                                         {item.hasDropdown && <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""}`} />}
                                     </Link>
