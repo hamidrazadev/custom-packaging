@@ -4,7 +4,7 @@ import "./styles/index.css";
 import "./styles/custom.css";
 import Footer from '../components/Footer';
 import 'react-loading-skeleton/dist/skeleton.css'
-import Header from '../components/Navigation';
+import Header from '../components/Header';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

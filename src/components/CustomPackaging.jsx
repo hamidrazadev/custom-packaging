@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const packagingOptions = [
   {
@@ -45,20 +46,19 @@ const CustomPackagingSection = () => {
   return (
     <section className="bg-[#F8F9F9] py-16 px-4 lg:px-20">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 flex flex-col items-center gap-4">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
             One for all solution, for custom printed packaging
           </h2>
-          <p className="mt-4 text-gray-600 text-base sm:text-lg">
+          <p className="text-gray-600 text-base sm:text-lg">
             Get everything custom packaging your business needs all in one place.
           </p>
-          <Button
-                variant="outline"
-                size="lg"
-                className="border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 text-lg mt-6"
-            >
-                Browse full catalog
-            </Button>
+          <Link
+            href={'/catalogue'}
+            className="btn-lg w-fit"
+          >
+            Browse full catalog
+          </Link>
         </div>
 
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
@@ -81,21 +81,20 @@ const CustomPackagingSection = () => {
           {/* Last Custom Quote Card */}
           <div
             className="group bg-[#E8E8E8] bg-[url('https://apiv1.boxprintinghub.com/wp-content/uploads/2025/08/box-8.webp')] bg-contain bg-center bg-no-repeat rounded-lg p-6 flex flex-col justify-between shadow-sm"
-            >
+          >
             <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
                 Looking for something else?
-                </h3>
-                <p className="text-gray-800 text-lg font-medium">We can help.</p>
+              </h3>
+              <p className="text-gray-800 text-lg font-medium">We can help.</p>
             </div>
-            <Button
-                variant="outline"
-                size="lg"
-                className="border-primary text-primary group-hover:bg-primary group-hover:text-white px-8 py-3 text-lg mt-6"
+            <Link
+              href={'/catalogue'}
+              className="btn-lg-outline w-fit"
             >
-                Browse full catalog
-            </Button>
-            </div>
+              Browse full catalog
+            </Link>
+          </div>
 
         </div>
       </div>

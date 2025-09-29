@@ -1,164 +1,199 @@
-import React, { useState } from 'react';
-import { Phone, Mail, Menu, X } from 'lucide-react';
-import companyInfo from 'constants/comapnyInfo';
+"use client"
+import { useState, useRef, useEffect } from "react";
+import { Menu, X, Phone, ChevronDown, Search, ChevronUp } from "lucide-react";
+import Link from "next/link";
+import FormDialog from "./FormDialog";
+import companyInfo from 'constants/comapnyInfo'
+import { GetAllIndustries } from "@/services/Industries";
+import { GetAllPackagingStyles } from "@/services/PackagingStyles";
+import Image from "next/image";
 
 const Header = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [openDropdown, setOpenDropdown] = useState(null);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [activeDropdown, setActiveDropdown] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
+    const hideDropdownTimeout = useRef(null);
+    const [open, setOpen] = useState(false);
 
-    const industries = [
-        'Cosmetics & Skincare',
-        'Food & Beverage',
-        'Bakery & Confectionery',
-        'Retail & E-commerce',
-        'Soap & Candles',
-        'Healthcare & Pharmaceuticals'
+    const [industries, setIndustries] = useState([]);
+    const [packagingStyles, setPackagingStyles] = useState([]);
+
+    const fetchIndustries = async () => {
+        const industries = await GetAllIndustries()
+        setIndustries(industries)
+    }
+    const fetchPackagingStyles = async () => {
+        const packagingStyles = await GetAllPackagingStyles()
+        setPackagingStyles(packagingStyles)
+        console.log("packagingStyles", packagingStyles)
+    }
+
+    useEffect(() => {
+        fetchIndustries()
+        fetchPackagingStyles()
+    }, [])
+
+    const menuItems = [
+        {
+            name: 'Home',
+            href: '/',
+            hasDropdown: false,
+            dropdownItems: []
+        },
+        {
+            name: 'Industries',
+            href: '/industry',
+            hasDropdown: true,
+            dropdownItems: industries.slice(0, 4),
+        },
+        {
+            name: 'Product Packaging Styles',
+            href: '/shapes-and-styles',
+            hasDropdown: true,
+            dropdownItems: packagingStyles.slice(0, 4),
+        },
+        {
+            name: 'Other Printing Products',
+            href: '#',
+            hasDropdown: false,
+            dropdownItems: []
+        },
+        {
+            name: 'Custom Quotes',
+            href: '#',
+            hasDropdown: false,
+            dropdownItems: []
+        },
+        {
+            name: 'About Us',
+            href: '#',
+            hasDropdown: false,
+            dropdownItems: []
+        },
+        {
+            name: 'Contact Us',
+            href: '/contact',
+            hasDropdown: false,
+            dropdownItems: []
+        },
     ];
 
-    const productStyles = [
-        'Mailer Boxes',
-        'Tuck Boxes',
-        'Rigid Boxes',
-        'Mylar Pouches',
-        'Labels & Stickers',
-        'Custom Bags'
-    ];
+    const handleMouseEnter = (name) => {
+        if (hideDropdownTimeout.current) clearTimeout(hideDropdownTimeout.current);
+        setActiveDropdown(name);
+    };
 
-    const toggleDropdown = (dropdown) => {
-        setOpenDropdown(openDropdown === dropdown ? null : dropdown);
+    const handleMouseLeave = () => {
+        hideDropdownTimeout.current = setTimeout(() => setActiveDropdown(null), 250);
+    };
+
+    const toggleMobileDropdown = (name) => {
+        setActiveDropdown(activeDropdown === name ? null : name);
     };
 
     return (
-        <header className="bg-white shadow-lg fixed w-full top-0 z-50">
-            {/* Top Contact Bar */}
-            <div className="bg-accent text-white py-2">
-                <div className="container mx-auto px-4 flex justify-between items-center text-sm">
-                    <div className="flex items-center space-x-6">
-                        <div className="flex items-center space-x-2">
-                            <Phone size={16} />
-                            <span>{companyInfo.phone}</span>
+        <div className="border-b border-gray-200 bg-white shadow-md w-full z-50 sticky top-0">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between items-center h-16 lg:h-20">
+                    <Link href="/" className="flex items-center">
+                        <h1 className="text-3xl font-bold text-accent">
+                            Custom <span className="font-normal">Packaging</span>
+                        </h1>
+                    </Link>
+
+                    <div className="hidden md:flex items-center space-x-6">
+                        <div className="text-right">
+                            <div className="text-xs text-gray-600">Speak with a Packaging Expert</div>
+                            <div className="flex items-center text-accent font-bold text-sm">
+                                <Phone className="h-4 w-4 mr-1" />
+                                {companyInfo.phone}
+                            </div>
                         </div>
-                        <div className="flex items-center space-x-2">
-                            <Mail size={16} />
-                            <span>{companyInfo.email}</span>
-                        </div>
+                        <Link href="/contact" onClick={() => setOpen(true)} className="bg-accent hover:bg-primary text-white px-4 lg:px-6 py-2 rounded-lg font-medium text-sm transition-all duration-300">
+                            Want to Consult?
+                        </Link>
                     </div>
-                    <button className="bg-secondary text-accent px-4 py-1 rounded-full hover:bg-yellow-500 transition-colors">
-                        Request a Quote
+
+                    <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 hover:text-accent transition-colors duration-300 md:hidden">
+                        {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                     </button>
                 </div>
             </div>
 
-            {/* Main Navigation */}
-            <nav className="bg-white py-4">
-                <div className="container mx-auto px-4 flex justify-between items-center">
-                    {/* Logo */}
-                    <div className="text-2xl font-bold text-primary">
-                        Custom Packaging
-                    </div>
+            <div className="border-t border-gray-200 bg-white hidden lg:block">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex justify-between items-center h-14">
+                        <div className="flex items-center space-x-8">
+                            {menuItems.map((item) => (
+                                <div key={item.name} className="relative group" onMouseEnter={() => handleMouseEnter(item.name)} onMouseLeave={handleMouseLeave}>
+                                    <Link href={item.href} className="flex items-center text-gray-700 hover:text-accent font-medium text-sm">
+                                        {item.name}
+                                        {item.hasDropdown && <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""}`} />}
+                                    </Link>
 
-                    {/* Desktop Menu */}
-                    <div className="hidden lg:flex items-center space-x-8">
-                        {/* Industries Dropdown */}
-                        <div className="relative">
-                            <button
-                                onClick={() => toggleDropdown('industries')}
-                                className="text-accent hover:text-primary transition-colors font-medium"
-                            >
-                                Industries
-                            </button>
-                            {openDropdown === 'industries' && (
-                                <div className="absolute top-full left-0 mt-2 w-64 bg-white shadow-xl rounded-lg border z-50">
-                                    <div className="py-2">
-                                        {industries.map((industry, index) => (
-                                            <a
-                                                key={index}
-                                                href="#"
-                                                className="block px-4 py-2 text-accent hover:bg-gray-50 hover:text-primary transition-colors"
-                                            >
-                                                {industry}
-                                            </a>
-                                        ))}
-                                        <a href="#" className="block px-4 py-2 text-primary font-medium border-t mt-2">
-                                            View All Industries
-                                        </a>
-                                    </div>
+                                    {item.dropdownItems.length > 0 && (
+                                        activeDropdown === item.name && (
+                                            <div className="absolute left-0 top-full mt-4 bg-white shadow-lg border border-gray-200 p-6 w-[800px] grid grid-cols-2 lg:grid-cols-4 gap-6 transition-all duration-300 z-50" onMouseEnter={() => handleMouseEnter(item.name)} onMouseLeave={handleMouseLeave}>
+                                                {item.dropdownItems.map((dropdownItem, index) => (
+                                                    <Link key={index} href={`${item.href}/${dropdownItem.slug + '-' + dropdownItem.id}`} className="flex flex-col items-center text-center hover:shadow-lg p-3 rounded-lg transition-all duration-200 hover:scale-105">
+                                                        <Image width={128} height={128} src={dropdownItem.icon || '/assets/images/AllIndustries/Candle.png'} alt={dropdownItem.name} className="rounded-md mb-2" />
+                                                        <span className="text-sm font-medium text-gray-700">{dropdownItem.name}</span>
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        )
+                                    )}
+
                                 </div>
-                            )}
+                            ))}
                         </div>
 
-                        {/* Product Styles Dropdown */}
-                        <div className="relative">
-                            <button
-                                onClick={() => toggleDropdown('products')}
-                                className="text-accent hover:text-primary transition-colors font-medium"
-                            >
-                                Product Packaging Styles
-                            </button>
-                            {openDropdown === 'products' && (
-                                <div className="absolute top-full left-0 mt-2 w-64 bg-white shadow-xl rounded-lg border z-50">
-                                    <div className="py-2">
-                                        {productStyles.map((style, index) => (
-                                            <a
-                                                key={index}
-                                                href="#"
-                                                className="block px-4 py-2 text-accent hover:bg-gray-50 hover:text-primary transition-colors"
-                                            >
-                                                {style}
-                                            </a>
-                                        ))}
-                                        <a href="#" className="block px-4 py-2 text-primary font-medium border-t mt-2">
-                                            View All Products
-                                        </a>
-                                    </div>
-                                </div>
-                            )}
+                        <div className="flex items-center">
+                            <div className="relative">
+                                <input type="text" placeholder="Search..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-64 pl-4 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-sm" />
+                                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                            </div>
                         </div>
-
-                        <a href="#stories" className="text-accent hover:text-primary transition-colors font-medium">
-                            Client Success Stories
-                        </a>
-                        <a href="#capabilities" className="text-accent hover:text-primary transition-colors font-medium">
-                            Our Capabilities
-                        </a>
-                        <a href="#contact" className="text-accent hover:text-primary transition-colors font-medium">
-                            Contact
-                        </a>
                     </div>
-
-                    {/* Mobile Menu Button */}
-                    <button
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        className="lg:hidden text-accent"
-                    >
-                        {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                    </button>
                 </div>
+            </div>
 
-                {/* Mobile Menu */}
-                {isMenuOpen && (
-                    <div className="lg:hidden bg-white border-t">
-                        <div className="container mx-auto px-4 py-4 space-y-4">
-                            <a href="#" className="block text-accent hover:text-primary transition-colors font-medium">
-                                Industries
-                            </a>
-                            <a href="#" className="block text-accent hover:text-primary transition-colors font-medium">
-                                Product Packaging Styles
-                            </a>
-                            <a href="#stories" className="block text-accent hover:text-primary transition-colors font-medium">
-                                Client Success Stories
-                            </a>
-                            <a href="#capabilities" className="block text-accent hover:text-primary transition-colors font-medium">
-                                Our Capabilities
-                            </a>
-                            <a href="#contact" className="block text-accent hover:text-primary transition-colors font-medium">
-                                Contact
-                            </a>
+            {isMobileMenuOpen && (
+                <div className="md:hidden bg-white border-t border-gray-200">
+                    <div className="px-4 py-4 space-y-2">
+                        {menuItems.map((item) => (
+                            <div key={item.name}>
+                                <button onClick={() => toggleMobileDropdown(item.name)} className="flex justify-between w-full text-gray-700 hover:text-accent font-medium text-base">
+                                    {item.name}
+                                    {item.hasDropdown && <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""}`} />}
+                                </button>
+                                {activeDropdown === item.name && (
+                                    <div className="grid grid-cols-2 gap-4 mt-2">
+                                        {item.dropdownItems.map((dropdownItem, index) => (
+                                            <Link key={index} href="#" className="flex flex-col items-center text-center hover:shadow-lg p-3 rounded-lg transition-all duration-200 hover:scale-105">
+                                                <Image width={96} height={96} src={dropdownItem.icon || '/assets/images/AllIndustries/Candle.png'} alt={dropdownItem.name} className="rounded-md mb-2" />
+                                                <span className="text-sm font-medium text-gray-700">{dropdownItem.name}</span>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                        <div className="flex flex-col space-y-2 mt-4">
+                            <Link href="/contact" onClick={() => setOpen(true)} className="bg-accent hover:bg-primary text-white px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 text-center">
+                                Request A Quote
+                            </Link>
+                            <div className="flex items-center justify-center text-accent font-bold text-sm">
+                                <Phone className="h-4 w-4 mr-1" />
+                                {companyInfo.phone}
+                            </div>
                         </div>
                     </div>
-                )}
-            </nav>
-        </header>
+                </div>
+            )}
+            <FormDialog open={open} onOpenChange={setOpen} />
+
+        </div>
     );
 };
 

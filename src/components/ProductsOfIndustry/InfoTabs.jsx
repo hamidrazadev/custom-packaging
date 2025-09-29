@@ -28,7 +28,7 @@ export default function InfoTabs() {
                 {tabs.map((tab, index) => (
                     <button
                         key={index}
-                        className={`flex w-full items-center gap-2 px-4 py-2 rounded-t-lg font-medium transition-all 
+                        className={`flex justify-center w-full items-center gap-2 p-4 rounded-t-lg font-medium transition-all 
                             ${activeTab === index
                                 ? "bg-accent text-white"
                                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"

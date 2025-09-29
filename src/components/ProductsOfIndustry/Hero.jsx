@@ -27,7 +27,7 @@ export default function Hero({ heroData }) {
     }
 
     return (
-        <div className='grid grid-cols-1 lg:gap-8 md:gap-6 gap-4 lg:grid-cols-2 container mx-auto py-4 justify-between items-center'>
+        <div className='grid grid-cols-1 lg:gap-8 md:gap-6 gap-4 lg:grid-cols-2 container mx-auto py-4 justify-between'>
             <div className="flex lg:flex-col flex-col-reverse gap-4 lg:gap-6">
                 <div className="flex flex-col gap-3">
                     <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">{heroData.title}</h1>

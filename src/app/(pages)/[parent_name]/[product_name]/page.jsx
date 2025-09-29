@@ -33,7 +33,7 @@ export default async function page({ params }) {
     // console.log("productDetails.related_products", productDetails.related_products);
 
     return (
-        <div className="flex flex-col pt-4">
+        <div className="flex flex-col pt-4 gap-4">
             <TopBreadCrumb data={{ parent_name, product_name, isFromIndustry: productDetails.isFromIndustry }} />
             <Hero heroData={heroData} />
             <ProductOverview overview={productDetails.overview} />

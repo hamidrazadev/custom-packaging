@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import FormDialog from './FormDialog';
+import Link from 'next/link';
 
 const Hero = () => {
     const [open, setOpen] = useState(false);
@@ -27,21 +28,19 @@ const Hero = () => {
                         </div> */}
 
                         <div className="flex flex-col sm:flex-row gap-4">
-                            <Button
-                                size="lg"
-                                className="bg-primary hover:bg-green-600 text-white px-8 py-3 text-lg"
+                            <Link
+                                href={'/catalogue'}
+                                className="btn-lg"
                             >
                                 Browse Catalog
-                            </Button>
-                            <Button
-                                variant="outline"
-                                size="lg"
-                                className="border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 text-lg"
-                                onClick={() => setOpen(true)}
+                            </Link>
+                            <Link
+                                href={'/contact'}
+                                className="btn-lg-outline"
                             >
                                 Request Quote
-                            </Button>
-                            <FormDialog  open={open} onOpenChange={setOpen}/>
+                            </Link>
+                            <FormDialog open={open} onOpenChange={setOpen} />
                         </div>
 
                         {/* Trust Indicators */}
