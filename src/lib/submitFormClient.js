@@ -39,26 +39,32 @@ export function extractRequriedDataFromResponse(data) {
 }
 
 export function convertFormData(formData) {
-    const [firstName = "", lastName = ""] = formData.fullName.trim().split(" ");
+    // Prefer fullName, fallback to name
+    const rawName = formData.fullName || formData.name || "";
+    const parts = rawName.trim().split(/\s+/);
+
+    // First word = firstName, last word = lastName, middle ignored
+    const firstName = parts.length > 0 ? parts[0] : "";
+    const lastName = parts.length > 1 ? parts.slice(1).join(" ") : "";
 
     return {
         input_values: {
-            "input_24_3": firstName,                   // First Name
-            "input_24_6": lastName,                    // Last Name
-            "input_2": formData.email,                 // Email
-            "input_3": formData.specifications,        // Message / Packaging Details
-            "input_5": formData.phone,                 // Phone
-            "input_6": formData.companyName || "",     // Company Name
-            "input_9": formData.address || "",         // Address
-            "input_10": formData.quantity,             // Quantity
-            "input_11": formData.website || "",        // Website
-            "input_14": formData.industry || "",       // Industry
-            "input_15": formData.material,             // Material
-            "input_16": `${formData.length}${formData.dimensionUnit}`, // Length
-            "input_17": `${formData.width}${formData.dimensionUnit}`,  // Width
-            "input_18": `${formData.height}${formData.dimensionUnit}`, // Height
-            "input_20": formData.coatingLamination,    // Coating
-            "input_21": formData.extraFinishing,       // Extra Finishing
+            "input_24_3": firstName,                                // First Name
+            "input_24_6": lastName,                                 // Last Name
+            "input_2": formData.email || "",                        // Email
+            "input_3": formData.specifications || "",               // Message / Packaging Details
+            "input_5": formData.phone || "",                        // Phone
+            "input_6": formData.companyName || "",                  // Company Name
+            "input_9": formData.address || "",                      // Address
+            "input_10": formData.quantity || "",                    // Quantity
+            "input_11": formData.website || "",                     // Website
+            "input_14": formData.industry || "",                    // Industry
+            "input_15": formData.material || "",                    // Material
+            "input_16": formData.length ? `${formData.length}${formData.dimensionUnit || ""}` : "", // Length
+            "input_17": formData.width ? `${formData.width}${formData.dimensionUnit || ""}` : "",   // Width
+            "input_18": formData.height ? `${formData.height}${formData.dimensionUnit || ""}` : "", // Height
+            "input_20": formData.coatingLamination || "",           // Coating
+            "input_21": formData.extraFinishing || "",              // Extra Finishing
         },
     };
 }

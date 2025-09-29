@@ -5,7 +5,7 @@ import "./styles/custom.css";
 import Footer from '../components/Footer';
 import 'react-loading-skeleton/dist/skeleton.css'
 import Header from '../components/Header';
-import Toaster from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast'
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
         className={`${poppins.className} antialiased`}
       >
         <Toaster
-          position="top-center"
+          position="bottom-center"
           reverseOrder={false}
         />
         <Header />

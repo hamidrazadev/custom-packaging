@@ -1,6 +1,9 @@
 "use client"
+import submitForm from '@/lib/submitFormClient'
 import Image from 'next/image'
+import { redirect } from 'next/navigation'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 
 export default function Hero({ heroData }) {
     const [imageIndx, setImageIndx] = useState(0)
@@ -12,10 +15,25 @@ export default function Hero({ heroData }) {
         category: "",
         description: ""
     })
-
     const handleOnChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+    }
+
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+        // console.log("Form submitted:", formData);
+        const promise = submitForm(formData);
+        toast.promise(promise, {
+            loading: "Submitting your form...",
+            success: (data) => {
+                return data.is_spam
+                    ? "Form submitted, but marked as spam ❌"
+                    : "Form submitted successfully ✅";
+            },
+            error: (err) => `Submission failed: ${err.message}`,
+        });
+        redirect('/catalogue')
     }
 
     const nextImage = () => {
@@ -111,8 +129,8 @@ export default function Hero({ heroData }) {
                                         key={index}
                                         onClick={() => setImageIndx(index)}
                                         className={`w-2 h-2 rounded-full transition-all duration-300 ${index === imageIndx
-                                                ? "bg-accent scale-125"
-                                                : "bg-gray-300 hover:bg-gray-400"
+                                            ? "bg-accent scale-125"
+                                            : "bg-gray-300 hover:bg-gray-400"
                                             }`}
                                         aria-label={`Go to image ${index + 1}`}
                                     />
@@ -124,7 +142,7 @@ export default function Hero({ heroData }) {
             </div>
 
             {/* Form Section */}
-            <div className="lg:px-8 py-4 lg:py-2 flex flex-col gap-3 lg:gap-4">
+            <form onSubmit={handleOnSubmit} className="lg:px-8 py-4 lg:py-2 flex flex-col gap-3 lg:gap-4">
                 <h2 className="text-xl md:text-2xl lg:text-3xl font-bold">Get an Instant Quote</h2>
                 <p className="text-gray-600">Fill out the form below and we will get in touch with you to discuss your needs.</p>
 
@@ -185,6 +203,7 @@ export default function Hero({ heroData }) {
                 </select>
 
                 <textarea
+                    required
                     rows={4}
                     name="description"
                     value={formData.description}
@@ -193,8 +212,8 @@ export default function Hero({ heroData }) {
                     placeholder="Provide detailed packaging specifications including dimensions, materials, weight restrictions, and design references and we'll get back to you with an instant quote."
                 />
 
-                <button className="btn-lg w-full lg:w-1/3 mt-2">Get a Quote</button>
-            </div>
+                <button type="submit" className="btn-lg w-full lg:w-1/3 mt-2">Get a Quote</button>
+            </form>
         </div>
     )
 }

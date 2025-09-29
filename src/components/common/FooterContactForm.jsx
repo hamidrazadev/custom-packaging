@@ -1,11 +1,24 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image'
 import submitForm from '@/lib/submitFormClient';
 import toast from 'react-hot-toast';
 import { redirect } from 'next/navigation';
+import { GetAllIndustries } from '@/services/Industries';
 
 export default function FooterContactForm() {
+    const [industries, setIndustries] = useState([]);
+
+    const fetchIndustries = async () => {
+        const fetchedIndustries = await GetAllIndustries()
+        const industriesName = fetchedIndustries.map((industry) => industry.name)
+        setIndustries(industriesName)
+    }
+
+    useEffect(() => {
+        fetchIndustries()
+    }, [])
+
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
@@ -23,6 +36,7 @@ export default function FooterContactForm() {
             ...prev,
             [name]: value
         }));
+        // toast.success("Here is a toast.");
     };
 
     const handleSubmit = async (e) => {
@@ -39,16 +53,16 @@ export default function FooterContactForm() {
             error: (err) => `Submission failed: ${err.message}`,
         });
         redirect('/catalogue')
-        setFormData({
-            fullName: '',
-            email: '',
-            phone: '',
-            companyName: '',
-            website: '',
-            physicalAddress: '',
-            quantity: '',
-            industry: ''
-        })
+        // setFormData({
+        //     fullName: '',
+        //     email: '',
+        //     phone: '',
+        //     companyName: '',
+        //     website: '',
+        //     physicalAddress: '',
+        //     quantity: '',
+        //     industry: ''
+        // })
     };
 
     return (
@@ -67,10 +81,11 @@ export default function FooterContactForm() {
                             of receiving them, we'll credit the cost of your samples-making them absolutely free!
                         </p>
 
-                        <div className="space-y-2">
+                        <form onSubmit={handleSubmit} className="space-y-2">
                             <div className="grid md:grid-cols-2 gap-2">
                                 <div>
                                     <input
+                                        required
                                         type="text"
                                         name="fullName"
                                         placeholder="Full Name*"
@@ -81,6 +96,7 @@ export default function FooterContactForm() {
                                 </div>
                                 <div>
                                     <input
+                                        required
                                         type="email"
                                         name="email"
                                         placeholder="Email*"
@@ -94,6 +110,7 @@ export default function FooterContactForm() {
                             <div className="grid md:grid-cols-2 gap-2">
                                 <div>
                                     <input
+                                        required
                                         type="tel"
                                         name="phone"
                                         placeholder="Phone*"
@@ -150,30 +167,30 @@ export default function FooterContactForm() {
                                 </div>
                                 <div>
                                     <select
+                                        required
                                         name="industry"
                                         value={formData.industry}
                                         onChange={handleInputChange}
                                         className="transparent-input appearance-none cursor-pointer"
                                     >
                                         <option value="">Select Industry</option>
-                                        <option value="retail">Retail</option>
-                                        <option value="food-beverage">Food & Beverage</option>
-                                        <option value="cosmetics">Cosmetics</option>
-                                        <option value="electronics">Electronics</option>
-                                        <option value="healthcare">Healthcare</option>
-                                        <option value="automotive">Automotive</option>
-                                        <option value="other">Other</option>
+                                        {
+                                            industries.map((industry, index) => (
+                                                <option key={index} value={industry}>{industry}</option>
+                                            ))
+                                        }
                                     </select>
                                 </div>
                             </div>
 
                             <button
-                                onClick={handleSubmit}
+                                type='submit'
+                                // onClick={handleSubmit}
                                 className="btn"
                             >
                                 Get Started
                             </button>
-                        </div>
+                        </form>
                     </div>
 
                     {/* Right Side - Image */}
