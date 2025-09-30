@@ -14,19 +14,27 @@ export function SearchPopup({ searchedProducts }) {
 
     return (
         <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto">
-            {searchedProducts.length > 0 ? (
-                searchedProducts.map((product) => (
-                    <Link
-                        key={product.id}
-                        href={`/product/${product.slug}-${product.id}`}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-accent hover:text-white transition rounded"
-                    >
-                        {product.title}
-                    </Link>
-                ))
-            ) : (
-                <p className="px-4 py-2 text-sm text-gray-500">No results found</p>
-            )}
+            {
+                searchedProducts.length > 0 ? (
+                    searchedProducts.map((product) => (
+                        <Link
+                            key={product.id}
+                            href={`/product/${product.slug}-${product.id}`}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-accent hover:text-white transition rounded"
+                        >
+                            {product.title}
+                        </Link>
+                    ))
+                ) : (
+                    <p className="px-4 py-2 text-sm">No results found</p>
+                )
+            }
+            <Link
+                href={`/catalogue`}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-accent hover:text-white transition rounded"
+            >
+                View All {`>`}
+            </Link>
         </div>
     );
 }
