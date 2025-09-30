@@ -32,17 +32,33 @@ export async function GetAProduct(id) {
     // console.log(productDetailsObj);
     const requiredData = {
         productId: productDetailsObj.id,
+
         isFromIndustry: productDetailsObj?.industries?.nodes?.length ? true : false,
+
         title: productDetailsObj.title,
+
         slug: productDetailsObj.slug,
+
         overview: {
             title: productDetailsObj.title,
             description: productDetailsObj.productOverview.productOverview,
             image: productDetailsObj.featuredImage.node.guid
         },
+
+        industry_slug: productDetailsObj?.industries?.nodes?.length ? productDetailsObj?.industries?.nodes[0]?.slug : null,
+
+        industry_id: productDetailsObj?.industries?.nodes?.length ? productDetailsObj?.industries?.nodes[0]?.id : null,
+
+        packaging_style_slug: productDetailsObj?.packagingStyles?.nodes?.length ? productDetailsObj?.packagingStyles?.nodes[0]?.slug : null,
+
+        packaging_style_id: productDetailsObj?.packagingStyles?.nodes?.length ? productDetailsObj?.packagingStyles?.nodes[0]?.id : null,
+
         related_products: getRelatedProducts(productDetailsObj?.[productDetailsObj?.industries?.nodes?.length ? "industries" : "packagingStyles"]?.nodes),
+
         images: extractMaterialImages(productDetailsObj.productMaterial),
+
         learn_more: productDetailsObj.productLearnMore?.learMore || null,
+
         faqs: transformFaqs(productDetailsObj.productFaqs) || null,
     }
 

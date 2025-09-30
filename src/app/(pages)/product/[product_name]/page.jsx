@@ -14,7 +14,7 @@ import { GetAllPackagingStyles } from '@/services/PackagingStyles'
 import Image from 'next/image'
 
 export default async function page({ params }) {
-    const { parent_name, product_name } = await params
+    const { product_name } = await params
     const product_id = await product_name.split("-")[product_name.split("-").length - 1];
 
     const productDetails = await GetAProduct(product_id);
@@ -30,7 +30,9 @@ export default async function page({ params }) {
         sub_options,
     }
 
-    // console.log("productDetails.related_products", productDetails.related_products);
+    const parent_name = productDetails.packaging_style_slug ? productDetails.packaging_style_slug : productDetails.industry_slug
+
+    // console.log("productDetails", productDetails);
 
     return (
         <div className="flex flex-col pt-4 gap-4">
@@ -42,7 +44,7 @@ export default async function page({ params }) {
                 productDetails.learn_more &&
                 <LearnMore data={productDetails.learn_more} />
             }
-            <RelatedProducts parent_name={parent_name} products={productDetails.related_products} />
+            <RelatedProducts products={productDetails.related_products} />
             <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8 gap-4 w-full container mx-auto py-4 lg:py-8">
                 <OurCapabilities />
                 {

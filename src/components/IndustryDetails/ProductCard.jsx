@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 export default function ProductCard({ product, isToNextPage }) {
     const [open, setOpen] = React.useState(false)
-    const productURL = `/${window.location.pathname.split("/")[2]}/${product.slug + "-" + product.id}`
+    const productURL = `/product/${product.slug + "-" + product.id}`
     const onClickBtn = () => {
         setOpen(true)
     }

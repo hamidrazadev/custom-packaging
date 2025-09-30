@@ -118,7 +118,7 @@ export default function Main({ allProducts, allIndustries, allPackagingStyles })
                                     allProductsFiltered.map((product) => (
                                         <Link
                                             key={product.id}
-                                            href={`/${product.industries?.nodes[0].slug + "-" + product.industries?.nodes[0].id}/${product.slug + "-" + product.id}`}
+                                            href={`/product/${product.slug + "-" + product.id}`}
                                             className='hover:shadow-xl rounded-xl transition-all duration-500 bg-white w-full h-full flex flex-col gap-2 hover:scale-[1.05] p-3'>
                                             {product.featuredImage?.node?.guid ? (
                                                 <Image

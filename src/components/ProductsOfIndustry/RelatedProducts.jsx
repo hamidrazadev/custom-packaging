@@ -4,7 +4,7 @@ import React, { useRef } from 'react'
 import ProductCard from './ProductCard'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
-export default function RelatedProducts({ products, parent_name }) {
+export default function RelatedProducts({ products }) {
     const scrollRef = useRef(null);
     const scroll = (direction) => {
         if (scrollRef.current) {
@@ -51,7 +51,7 @@ export default function RelatedProducts({ products, parent_name }) {
                                 className="flex overflow-x-scroll scroll-smooth snap-x snap-mandatory scrollbar-none py-4 px-2 gap-4"
                             >
                                 {products.map((product, index) => (
-                                    <ProductCard parent_name={parent_name} key={index} product={product} />
+                                    <ProductCard key={index} product={product} />
                                 ))}
                             </div>
                         </> :

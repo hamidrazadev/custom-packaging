@@ -22,7 +22,7 @@ export const GetAnIndustryDetails = async (id) => {
     const industryDetails = await graphqlClient(GetAnIndustryQuery, { id });
     // console.log("Industry Details", industryDetails);
     const refinedData = {
-        name: industryDetails.industry.name,
+        name: industryDetails?.industry?.name || "",
         description: industryDetails.industry.description,
         image: industryDetails.industry.industryInformation.iindustryFeaturedImage?.node.guid,
         isToNextPage: industryDetails.industry.industryInformation.hasDetailedPage[0] === "Yes" ? true : false,

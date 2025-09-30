@@ -25,7 +25,7 @@ const Header = () => {
     const fetchPackagingStyles = async () => {
         const packagingStyles = await GetAllPackagingStyles()
         setPackagingStyles(packagingStyles)
-        console.log("packagingStyles", packagingStyles)
+        // console.log("packagingStyles", packagingStyles)
     }
 
     useEffect(() => {
