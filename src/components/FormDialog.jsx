@@ -21,7 +21,7 @@ export default function FormDialog({ open, onOpenChange }) {
 
           {/* Right: Form */}
           <div className="pt-6 px-6 w-full md:w-[65%]">
-            <ContactFormContent />
+            <ContactFormContent onOpenChange={onOpenChange} />
           </div>
         </div>
       </DialogContent>

@@ -16,7 +16,7 @@ import submitForm from "@/lib/submitFormClient";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-export default function ContactFormContent() {
+export default function ContactFormContent({ onOpenChange }) {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -45,6 +45,7 @@ export default function ContactFormContent() {
         }).then((data) => {
             if (!data?.is_spam) {
                 router.push('/catalogue')
+                onOpenChange(false);
             }
         }).catch((error) => setErrorInFormSubmission(error.message || "Something went wrong"));
     };
