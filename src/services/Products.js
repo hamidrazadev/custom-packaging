@@ -2,6 +2,7 @@ import { GetAllProducts as GetAllProductsQuery } from "@/graphql/queries/GetAllP
 import { GetAnIndustry } from "@/graphql/queries/GetAnIndustry";
 import { GetAProduct as GetAProductQuery } from "@/graphql/queries/GetAProduct";
 import { GetAPackagingStyle } from "@/graphql/queries/GetAPackagingStyle";
+import { GetProductsDetailBySearch as GetProductsDetailBySearchQuery } from "@/graphql/queries/GetProductsDetailBySearch";
 import { graphqlClient } from "@/lib/graphqlClient";
 
 export async function GetAllProducts({ first = 20, after = null, last = null, before = null }) {
@@ -63,6 +64,17 @@ export async function GetAProduct(id) {
     }
 
     return requiredData
+}
+
+export async function GetProductsDetailBySearch(search) {
+    const productDetails = await graphqlClient(GetProductsDetailBySearchQuery, { search });
+    return productDetails.products.nodes.map(product => {
+        return {
+            id: product.id,
+            title: product.title,
+            slug: product.slug
+        }
+    }).slice(0, 9)
 }
 
 function extractMaterialImages(productMaterial) {

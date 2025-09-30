@@ -7,13 +7,44 @@ import companyInfo from 'constants/comapnyInfo'
 import { GetAllIndustries } from "@/services/Industries";
 import { GetAllPackagingStyles } from "@/services/PackagingStyles";
 import Image from "next/image";
+import { GetProductsDetailBySearch } from "@/services/Products";
+
+export function SearchPopup({ searchedProducts }) {
+    if (!Array.isArray(searchedProducts)) return null; // safety check
+
+    return (
+        <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto">
+            {searchedProducts.length > 0 ? (
+                searchedProducts.map((product) => (
+                    <Link
+                        key={product.id}
+                        href={`/product/${product.slug}-${product.id}`}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-accent hover:text-white transition rounded"
+                    >
+                        {product.title}
+                    </Link>
+                ))
+            ) : (
+                <p className="px-4 py-2 text-sm text-gray-500">No results found</p>
+            )}
+        </div>
+    );
+}
 
 const Header = () => {
+    const searchRef = useRef(null);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const hideDropdownTimeout = useRef(null);
     const [open, setOpen] = useState(false);
+    const [searchedProducts, setSearchedProducts] = useState([
+        // {
+        //     id: "",
+        //     title: "",
+        //     slug: ""
+        // }
+    ]);
 
     const [industries, setIndustries] = useState([]);
     const [packagingStyles, setPackagingStyles] = useState([]);
@@ -32,6 +63,18 @@ const Header = () => {
         fetchIndustries()
         fetchPackagingStyles()
     }, [])
+
+    useEffect(() => {
+        function handleClickOutside(e) {
+            if (searchRef.current && !searchRef.current.contains(e.target)) {
+                setSearchedProducts([]);
+                setSearchQuery("");
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
 
     const menuItems = [
         {
@@ -91,6 +134,20 @@ const Header = () => {
         setActiveDropdown(activeDropdown === name ? null : name);
     };
 
+    const handleOnSearch = async (e) => {
+        const query = e.target.value;
+        setSearchQuery(query);
+
+        if (query.trim() === "") {
+            setSearchedProducts([]);
+            return;
+        }
+
+        const fetchedSearchedProducts = await GetProductsDetailBySearch(query);
+        setSearchedProducts(fetchedSearchedProducts || []);
+    };
+
+
     return (
         <div className="border-b border-gray-200 bg-white shadow-md w-full z-50 sticky top-0">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -149,9 +206,18 @@ const Header = () => {
                         </div>
 
                         <div className="flex items-center">
-                            <div className="relative">
-                                <input type="text" placeholder="Search..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-64 pl-4 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-sm" />
+                            <div className="relative" ref={searchRef}>
+                                <input
+                                    type="text"
+                                    placeholder="Search..."
+                                    value={searchQuery}
+                                    onChange={handleOnSearch}
+                                    className="w-64 pl-4 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-sm"
+                                />
                                 <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                                {searchedProducts.length > 0 && (
+                                    <SearchPopup searchedProducts={searchedProducts} />
+                                )}
                             </div>
                         </div>
                     </div>
