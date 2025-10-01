@@ -30,7 +30,7 @@ export default async function page({ params }) {
         sub_options,
     }
 
-    const parent_name = productDetails.packaging_style_slug ? productDetails.packaging_style_slug : productDetails.industry_slug
+    const parent_name = productDetails.packaging_style_slug ? productDetails.packaging_style_slug + "-" + productDetails.packaging_style_id : productDetails.industry_slug + "-" + productDetails.industry_id
 
     // console.log("productDetails", productDetails);
 
