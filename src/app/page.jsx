@@ -121,7 +121,7 @@ const topSellingIndustries = [
 const Home = () => {
     return (
         <div className="min-h-screen bg-white">
-            
+
             <Hero />
             <About />
             <CustomPackagingSection />
@@ -158,7 +158,7 @@ const Home = () => {
             />
             <OurCapabilities />
             <ContactForm />
-            
+
         </div>
     );
 };

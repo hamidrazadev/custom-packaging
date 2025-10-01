@@ -9,7 +9,7 @@ import { GetAllPackagingStyles } from "@/services/PackagingStyles";
 import Image from "next/image";
 import { GetProductsDetailBySearch } from "@/services/Products";
 
-export function SearchPopup({ searchedProducts }) {
+export function SearchPopup({ searchedProducts, setSearchedProducts }) {
     if (!Array.isArray(searchedProducts)) return null; // safety check
 
     return (
@@ -18,6 +18,7 @@ export function SearchPopup({ searchedProducts }) {
                 searchedProducts.length > 0 ? (
                     searchedProducts.map((product) => (
                         <Link
+                            onClick={() => setSearchedProducts([])}
                             key={product.id}
                             href={`/product/${product.slug}-${product.id}`}
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-accent hover:text-white transition rounded"
@@ -35,7 +36,7 @@ export function SearchPopup({ searchedProducts }) {
             >
                 View All {`>`}
             </Link>
-        </div>
+        </div >
     );
 }
 
@@ -224,7 +225,7 @@ const Header = () => {
                                 />
                                 <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                                 {searchedProducts.length > 0 && (
-                                    <SearchPopup searchedProducts={searchedProducts} />
+                                    <SearchPopup setSearchedProducts={setSearchedProducts} searchedProducts={searchedProducts} />
                                 )}
                             </div>
                         </div>
