@@ -87,6 +87,7 @@
 .btn-lg {
   @apply bg-accent hover:bg-primary text-white px-4 lg:px-6 py-2 rounded-lg font-medium text-lg transition-all duration-300;
 }
+
 .btn-lg-outline {
   @apply border border-accent hover:border-primary text-primary hover:text-white hover:bg-accent px-4 lg:px-6 py-2 rounded-lg font-medium text-lg transition-all duration-300;
 }
@@ -150,4 +151,39 @@ h3 {
 
 .animate-slide-out-right {
   animation: slide-out-right 0.3s ease-in forwards;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 3px solid #FFF;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+.loader::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-bottom-color: hsl(var(--accent));
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
